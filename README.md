@@ -1,1 +1,1 @@
-# bayes_def
+# bayesdef
