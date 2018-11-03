@@ -9,6 +9,12 @@ package com.bayesdef;
  */
 
 import com.badlogic.gdx.Game;
+import com.bayesdef.resources.BGM;
+import com.bayesdef.resources.Fonts;
+import com.bayesdef.resources.Options;
+import com.bayesdef.resources.Sounds;
+import com.bayesdef.resources.Textures;
+import com.bayesdef.screens.BayesScreen;
 
 public class BayesDef extends Game {
 	
@@ -23,7 +29,7 @@ public class BayesDef extends Game {
 		Options.load();
 		
 		
-		this.setScreen(new ProbScreen(this)); //Hand off to title screen.
+		this.setScreen(new BayesScreen(this)); //Hand off to title screen.
 		
 	}
 
