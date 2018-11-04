@@ -70,9 +70,19 @@ public class Shot {
 		   vertVel = (float) (jumpY/jumpMag)*shotspeed;
 		   
 	   }
-	   public Shot(Rectangle origin_r, float dest_x, float dest_y, float dotspeed, String typ){
+	   public Shot(Rectangle origin_r, float dest_x, float dest_y, float shotspeed, String typ){
 		   
-		   type=typ;
+		   if (typ.equals("doomed capture")){
+			   type = "capture";
+			   doomedToMiss=true;
+		   }
+		   else{
+			   type = typ;
+		   }
+		   
+		   if (type.equals("capture")){
+			   shotspeed=shotspeed*0.6f;
+		   }
 		   
 		   float origin_x=origin_r.x+origin_r.width/2;
 		   float origin_y=origin_r.y;
@@ -95,8 +105,8 @@ public class Shot {
 		   
 		   double jump_mag=Math.sqrt(jump_x*jump_x+jump_y*jump_y);
 		   
-		   horzVel=(float) (jump_x/jump_mag)*dotspeed;
-		   vertVel=(float) (jump_y/jump_mag)*dotspeed;
+		   horzVel=(float) (jump_x/jump_mag)*shotspeed;
+		   vertVel=(float) (jump_y/jump_mag)*shotspeed;
 	   }
 	   
 	   public void update_posn(float delta){

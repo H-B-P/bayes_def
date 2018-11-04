@@ -10,6 +10,6 @@ public class Options {
 		SFXVolume=1f;
 		MusicVolume=1f;
 		
-		waitForFiringButton=true;
+		waitForFiringButton=false;
 	}
 }

@@ -47,8 +47,8 @@ public class BayesScreen extends GameScreen{
 		
 		vane_setup();
 		
+		spawnEnemyShip(-2,0.5f);
 		spawnEnemyShip(0,0.5f);
-		
 		spawnEnemyShip(2,0.5f);
 		
 		BGM.campaignMusic.setLooping(true);
@@ -81,19 +81,13 @@ public class BayesScreen extends GameScreen{
 		//check_for_ship_mine_collisions();
 		//check_for_shot_mine_collisions();
 		check_for_symbol_enemyship_collisions();
-		//check_for_ship_shot_collisions();
+		check_for_ship_shot_collisions();
 		
 		do_status_relevant_things();
 		
 		
 		
-		//level_specific_drawing_of_enemyships();
-		
 		//draw_HUD();
-		
-		//for (Turret turret: turrets){
-		//	turret.rect.y = theShip.y + theShip.height - turret.rect.height - 20;
-		//}
 		
 		for (Vane vane: vanes){
 			vane.rect.y = theShip.y + theShip.height - vane.rect.height - 15;
@@ -252,9 +246,16 @@ void do_firing_things(){
 	}
 	
 	for (EnemyShip enemyship: enemyships){
-		if (enemyship.turret.targeted && enemyship.turret.firingTime<totalTime){
-			
+		if (enemyship.turret.firingTime<totalTime && enemyship.turret.targeted==true){
+			Sounds.fire.play(Options.SFXVolume*0.3f);
+			Shot shot = new Shot(enemyship.turret.rect, 160, 0, 5000, enemyship.turret.determine_output());
+			shots.add(shot);
+			enemyship.turret.targeted=false;
+			enemyship.turret.currentT=enemyship.turret.firingT;
 		}
+		if ((enemyship.turret.firingTime+0.05f)<totalTime){
+			enemyship.turret.currentT=enemyship.turret.normalT;
+	   }
 	}
 	
 	if (totalTime>volleyEndingTime){
@@ -287,7 +288,7 @@ void do_firing_things(){
 	}
 	
 	void set_up_firing_times(){
-		float firingTime = totalTime + 0.05f;
+		float firingTime = totalTime + 0f;
 		for (Vane vane: vanes){
 			if (vane.targeted && vane.targetShip!=null){
 				firingTime += 0.1f;
@@ -297,6 +298,7 @@ void do_firing_things(){
 		firingTime = totalTime + 0.4f;
 		for (EnemyShip enemyship: enemyships){
 				firingTime += 0.1f;
+				enemyship.turret.targeted=true;
 				enemyship.turret.firingTime = firingTime;
 		}
 		volleyEndingTime = firingTime + 0.15f;
@@ -367,6 +369,16 @@ void do_firing_things(){
 		}
 	}
 	
+	void check_for_ship_shot_collisions(){
+		for (Shot shot: shots){
+			if (shot.rect.y<theShield.y && !shot.doomedToMiss){
+				Sounds.deShield.play(Options.SFXVolume*0.5f);
+				shots.removeValue(shot, true);
+				shieldsRemaining -= 1;
+			}
+		}
+	}
+	
 	// ===Energy Functions===
 	
 	Texture shape_appropriate_target(String shape){
@@ -405,9 +417,9 @@ void do_firing_things(){
 	void draw_miss_statements(){
 		batch.begin();
 		for (Shot shot: shots){
-			if (shot.rect.y>shot.targetMine.rect.y && shot.rect.overlaps(screenProper)){
+			if (shot.rect.y<theShield.y && shot.rect.overlaps(screenProper)){
 				if (shot.doomedToMiss){
-					Fonts.AcalcFonts.white.draw(batch, "MISS", shot.rect.x-10, shot.rect.y-10);
+					Fonts.AcalcFonts.white.draw(batch, "MISS", shot.rect.x-10, shot.rect.y+10);
 				}
 			}
 		}
