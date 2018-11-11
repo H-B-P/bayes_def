@@ -13,7 +13,11 @@ public class EnemyShip {
 	
 	public float vertVel;
 	
-	public boolean obscured;
+	public boolean obscured = false;
+	public int obscurityno = 1;
+	public float obscuritytime = 0;
+	
+	
 	public boolean actuallyExists=true;
 	
    public Turret turret;
@@ -56,6 +60,8 @@ public class EnemyShip {
 	   squareChance = originalSquareChance = s;
 	   triangleChance = originalTriangleChance = t;
 	   
+	   normalise();
+	   
 	   double a = Math.random();
 	   
 	   if (a<circleChance){
@@ -76,6 +82,71 @@ public class EnemyShip {
 	   else{
 		   turret = new Turret("triangle");
 	   }
+   }
+   
+   public EnemyShip(int xposn, float c, float o, float h, float p, float s, float t, boolean obs){
+	   
+	   this(xposn, c, o, h, p, s, t);
+	   
+	   obscured=obs;
+   }
+   
+   public void normalise(){
+	   
+	   float tot = circleChance + octagonChance + hexagonChance + pentagonChance + squareChance + triangleChance;
+	   
+	   circleChance = circleChance/tot;
+	   octagonChance = octagonChance/tot;
+	   hexagonChance = hexagonChance/tot;
+	   pentagonChance = pentagonChance/tot;
+	   squareChance = squareChance/tot;
+	   triangleChance = triangleChance/tot;
+   
+   }
+   
+   public void update_chances_on_fail(String type){
+	   
+	   if (type.equals("circle")){
+		   circleChance=0;
+	   }
+	   if (type.equals("octagon")){
+		   octagonChance=0;
+	   }
+	   if (type.equals("hexagon")){
+		   hexagonChance=0;
+	   }
+	   if (type.equals("pentagon")){
+		   pentagonChance=0;
+	   }
+	   if (type.equals("square")){
+		   squareChance=0;
+	   }
+	   if (type.equals("triangle")){
+		   triangleChance=0;
+	   }
+	   
+	   normalise();
+   
+   }
+   
+   public void update_chances_on_shoot(String type){
+	   if (type.equals("destroy")){
+		   circleChance=0f*circleChance;
+		   octagonChance=0.2f*octagonChance;
+		   hexagonChance=0.4f*hexagonChance;
+		   pentagonChance=0.6f*pentagonChance;
+		   squareChance=0.8f*squareChance;
+		   triangleChance=1f*triangleChance;
+	   }
+	   else{
+		   circleChance=1f*circleChance;
+		   octagonChance=0.8f*octagonChance;
+		   hexagonChance=0.6f*hexagonChance;
+		   pentagonChance=0.4f*pentagonChance;
+		   squareChance=0.2f*squareChance;
+		   triangleChance=0f*triangleChance;
+	   }
+	   normalise();
    }
    
    public void update_posn(float delta){

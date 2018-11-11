@@ -2,6 +2,8 @@ package com.bayesdef.screens;
 
 import java.util.Iterator;
 
+import com.bayesdef.resources.Options;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -140,6 +142,7 @@ public class GameScreen extends SpaceScreen{
 		draw_explosions();
 		
 		draw_enemyships();
+		draw_obscurities();
 		draw_turrets();
 		draw_vanes();
 		draw_symbols();
@@ -189,6 +192,39 @@ public class GameScreen extends SpaceScreen{
 	void level_specific_enemyship_drawing(EnemyShip enemyShip){
 		
 	}
+	
+	void draw_obscurities(){
+		   for (EnemyShip enemyship: enemyships){
+			   if (enemyship.obscured){
+				   
+				   if (totalTime>enemyship.obscuritytime){
+					   enemyship.obscuritytime=totalTime+0.08f;
+					   enemyship.obscurityno=(enemyship.obscurityno+MathUtils.random(1,3))%4;
+				   }
+				   
+				   if (!Options.permitFlickering){
+					   batch.draw(Textures.Obscurities.one, enemyship.rect.x, enemyship.rect.y);
+				   }
+				   else{
+					   if (enemyship.obscurityno==1){
+						   batch.draw(Textures.Obscurities.one, enemyship.rect.x, enemyship.rect.y);
+					   }
+					   else if (enemyship.obscurityno==2){
+						   batch.draw(Textures.Obscurities.two, enemyship.rect.x, enemyship.rect.y);
+					   }
+					   else if (enemyship.obscurityno==3){
+						   batch.draw(Textures.Obscurities.three, enemyship.rect.x, enemyship.rect.y);
+					   }
+					   else if (enemyship.obscurityno==4){
+						   batch.draw(Textures.Obscurities.four, enemyship.rect.x, enemyship.rect.y);
+					   }
+					   else{
+						   batch.draw(Textures.Obscurities.one, enemyship.rect.x, enemyship.rect.y);
+					   }
+				   }
+			   }
+		   }
+	   }
 	
 	void draw_turrets(){
 			for (Turret turret: turrets){

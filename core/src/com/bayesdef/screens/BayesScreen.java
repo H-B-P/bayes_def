@@ -47,9 +47,9 @@ public class BayesScreen extends GameScreen{
 		
 		vane_setup();
 		
-		spawnEnemyShip(-2,0.5f);
-		spawnEnemyShip(0,0.5f);
-		spawnEnemyShip(2,0.5f);
+		spawnEnemyShip(-2,0.2f, false);
+		spawnEnemyShip(0,0.5f, false);
+		spawnEnemyShip(2,0.8f, true);
 		
 		BGM.campaignMusic.setLooping(true);
 		BGM.campaignMusic.play();
@@ -92,6 +92,8 @@ public class BayesScreen extends GameScreen{
 		for (Vane vane: vanes){
 			vane.rect.y = theShip.y + theShip.height - vane.rect.height - 15;
 		}
+		
+		autocalc();
 		
 	}
 	
@@ -250,6 +252,7 @@ void do_firing_things(){
 			Sounds.fire.play(Options.SFXVolume*0.3f);
 			Shot shot = new Shot(enemyship.turret.rect, 160, 0, 5000, enemyship.turret.determine_output());
 			shots.add(shot);
+			enemyship.update_chances_on_shoot(shot.type);
 			enemyship.turret.targeted=false;
 			enemyship.turret.currentT=enemyship.turret.firingT;
 		}
@@ -260,9 +263,9 @@ void do_firing_things(){
 	
 	if (totalTime>volleyEndingTime){
 		
-		for (Turret turret: turrets){
-			turret.targeted=false;
-			turret.targetMine=null;
+		for (Vane vane: vanes){
+			vane.targeted=false;
+			vane.targetShip=null;
 		}
 		
 		currentStatus = "waiting";
@@ -314,10 +317,12 @@ void do_firing_things(){
 	
 	void level_specific_enemyship_drawing(EnemyShip enemyShip){
 		
-		batch.draw(Textures.ShipParts.Engines.Fronts.one, enemyShip.rect.x-10, enemyShip.rect.y+40);
-		batch.draw(Textures.ShipParts.Engines.Backs.one, enemyShip.rect.x-10, enemyShip.rect.y+30+enemyShip.originalCircleChance*20);
-		batch.draw(Textures.ShipParts.Engines.Fronts.one, enemyShip.rect.x+50, enemyShip.rect.y+40);
-		batch.draw(Textures.ShipParts.Engines.Backs.one, enemyShip.rect.x+50, enemyShip.rect.y+30+enemyShip.originalTriangleChance*20);
+		float delter = enemyShip.originalCircleChance*10-5;
+		
+		batch.draw(Textures.ShipParts.Engines.Fronts.one, enemyShip.rect.x-10, enemyShip.rect.y+40-delter);
+		batch.draw(Textures.ShipParts.Engines.Backs.one, enemyShip.rect.x-10, enemyShip.rect.y+40+delter);
+		batch.draw(Textures.ShipParts.Engines.Fronts.one, enemyShip.rect.x+50, enemyShip.rect.y+40-delter);
+		batch.draw(Textures.ShipParts.Engines.Backs.one, enemyShip.rect.x+50, enemyShip.rect.y+40+delter);
 		
 		batch.draw(Textures.ShipParts.Fronts.one, enemyShip.rect.x, enemyShip.rect.y);
 		batch.draw(Textures.ShipParts.Backs.one, enemyShip.rect.x, enemyShip.rect.y+30);
@@ -363,6 +368,7 @@ void do_firing_things(){
 				}
 				else{
 					Sounds.mistakenShock.play(Options.SFXVolume*0.8f);
+					symbol.enemyShip.update_chances_on_fail(symbol.type);
 				}
 				symbols.removeValue(symbol,true);
 			}
@@ -414,12 +420,39 @@ void do_firing_things(){
 		batch.end();
 	}
 	
+	void autocalc(){
+		batch.begin();
+		
+		for (EnemyShip enemyship:enemyships){
+		   if (screenProper.overlaps(enemyship.rect) && enemyship.obscured){
+			   
+			   Fonts.AcalcFonts.gray.draw(batch, present_float(enemyship.circleChance*100f)+"%", enemyship.rect.x, enemyship.rect.y-20, 81, 1, true);
+			   batch.draw(Textures.Icons.circle, enemyship.rect.x-10, enemyship.rect.y-35);
+			      
+			   Fonts.AcalcFonts.gray.draw(batch, present_float(enemyship.triangleChance*100f)+"%", enemyship.rect.x, enemyship.rect.y-45, 81, 1, true);
+			   batch.draw(Textures.Icons.triangle, enemyship.rect.x-10, enemyship.rect.y-60);
+			   
+//			   Fonts.AcalcFonts.gray.draw(batch, present_float(enemyship.circleChance*100f)+"%", enemyship.rect.x, enemyship.rect.y-60, 81, 1, true);
+//			   batch.draw(Textures.Icons.circle, enemyship.rect.x-10, enemyship.rect.y-75);
+//			   
+//			   Fonts.AcalcFonts.gray.draw(batch, present_float(enemyship.circleChance*100f)+"%", enemyship.rect.x, enemyship.rect.y-85, 81, 1, true);
+//			   batch.draw(Textures.Icons.circle, enemyship.rect.x-10, enemyship.rect.y-100);
+//			   
+//			   Fonts.AcalcFonts.gray.draw(batch, present_float(enemyship.circleChance*100f)+"%", enemyship.rect.x, enemyship.rect.y-110, 81, 1, true);
+//			   batch.draw(Textures.Icons.circle, enemyship.rect.x-10, enemyship.rect.y-125);
+		   }
+		}
+		
+		batch.end();
+	}
+	
+	
 	void draw_miss_statements(){
 		batch.begin();
 		for (Shot shot: shots){
 			if (shot.rect.y<theShield.y && shot.rect.overlaps(screenProper)){
 				if (shot.doomedToMiss){
-					Fonts.AcalcFonts.white.draw(batch, "MISS", shot.rect.x-10, shot.rect.y+10);
+					Fonts.AcalcFonts.black.draw(batch, "MISS", shot.rect.x-10, shot.rect.y+10);
 				}
 			}
 		}
@@ -444,9 +477,9 @@ void do_firing_things(){
 	
 	// ===Spawning Functions===
 	
-	void spawnEnemyShip(int xposn, float cChance) {
+	void spawnEnemyShip(int xposn, float cChance, boolean obs) {
 		   
-		   EnemyShip enemyship = new EnemyShip(xposn, cChance, 0,0,0,0,1-cChance);
+		   EnemyShip enemyship = new EnemyShip(xposn, cChance, 0,0,0,0,1-cChance, obs);
 		   enemyships.add(enemyship);
 		         
 	}

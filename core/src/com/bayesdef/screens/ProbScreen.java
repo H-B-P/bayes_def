@@ -346,39 +346,39 @@ public class ProbScreen extends GameScreen{
 		batch.begin();
 		
 		for (Mine mine:mines){
-			   if (screenProper.overlaps(mine.rect)){
-				   
-				   float survive=1f;
-				   float destroy=0f;
-				   float capture=0f;
-				   float destroyExtra=0f;
-				   float captureExtra=0f;
-				   
-				   for (Turret turret: turrets){
-					   if (turret.targeted){
-						   if (turret.targetMine!=null){
-							   if (turret.targetMine.equals(mine)){
-								   destroyExtra = survive*turret.destroyChance;
-								   destroy = destroy + destroyExtra;
-								   
-								   captureExtra = survive*(1f-turret.destroyChance)*(1f-turret.captureMissingChance);
-								   capture = capture + captureExtra;
-								   
-								   survive = survive - destroyExtra - captureExtra;
-							   }
-						   }							   
-					   }
+		   if (screenProper.overlaps(mine.rect)){
+			   
+			   float survive=1f;
+			   float destroy=0f;
+			   float capture=0f;
+			   float destroyExtra=0f;
+			   float captureExtra=0f;
+			   
+			   for (Turret turret: turrets){
+				   if (turret.targeted){
+					   if (turret.targetMine!=null){
+						   if (turret.targetMine.equals(mine)){
+							   destroyExtra = survive*turret.destroyChance;
+							   destroy = destroy + destroyExtra;
+							   
+							   captureExtra = survive*(1f-turret.destroyChance)*(1f-turret.captureMissingChance);
+							   capture = capture + captureExtra;
+							   
+							   survive = survive - destroyExtra - captureExtra;
+						   }
+					   }							   
 				   }
-				   
-				   Fonts.AcalcFonts.blue.draw(batch, present_float(capture*100f)+"%", mine.rect.x-12, mine.rect.y-20, 81, 1, true);
-				   batch.draw(Textures.Icons.capture, mine.rect.x-12, mine.rect.y-31);
-				      
-				   Fonts.AcalcFonts.gray.draw(batch, present_float(survive*100f)+"%", mine.rect.x-12, mine.rect.y-35, 81, 1, true);
-				   batch.draw(Textures.Icons.survive, mine.rect.x-12, mine.rect.y-46);
-				   
-				   Fonts.AcalcFonts.red.draw(batch, present_float(destroy*100f)+"%", mine.rect.x-12, mine.rect.y-50, 81, 1, true);
-				   batch.draw(Textures.Icons.destroy, mine.rect.x-12, mine.rect.y-61);
 			   }
+			   
+			   Fonts.AcalcFonts.blue.draw(batch, present_float(capture*100f)+"%", mine.rect.x-12, mine.rect.y-20, 81, 1, true);
+			   batch.draw(Textures.Icons.capture, mine.rect.x-12, mine.rect.y-31);
+			      
+			   Fonts.AcalcFonts.gray.draw(batch, present_float(survive*100f)+"%", mine.rect.x-12, mine.rect.y-35, 81, 1, true);
+			   batch.draw(Textures.Icons.survive, mine.rect.x-12, mine.rect.y-46);
+			   
+			   Fonts.AcalcFonts.red.draw(batch, present_float(destroy*100f)+"%", mine.rect.x-12, mine.rect.y-50, 81, 1, true);
+			   batch.draw(Textures.Icons.destroy, mine.rect.x-12, mine.rect.y-61);
+		   }
 		}
 		
 		batch.end();

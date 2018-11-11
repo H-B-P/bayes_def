@@ -129,6 +129,9 @@ public class Textures {
 		public static Texture destroy;
 		public static Texture survive;
 
+		public static Texture circle;
+		public static Texture triangle;
+
 	}
 	
 	public static Texture detainingCircle;
@@ -141,6 +144,14 @@ public class Textures {
 		public static Texture regular;
 		public static Texture speedy;
 		public static Texture slow;
+
+	}
+	
+	public static class Obscurities{
+		public static Texture one;
+		public static Texture two;
+		public static Texture three;
+		public static Texture four;
 
 	}
 	
@@ -234,6 +245,10 @@ public class Textures {
 		Icons.destroy = new Texture("textures/icons/iconic_boom.png");
 		Icons.survive = new Texture("textures/icons/iconic_mine.png");
 		
+		Icons.circle = new Texture("textures/icons/iconic_circle.png");
+		Icons.triangle = new Texture("textures/icons/iconic_triangle.png");
+		
+		
 		Shots.capture = new Texture("textures/shots/shot_capture.png");
 		Shots.destroy = new Texture("textures/shots/shot_destroy.png");
 		
@@ -263,6 +278,11 @@ public class Textures {
 		Mine.regular = new Texture("textures/mines/mine.png");
 		Mine.speedy = new Texture("textures/mines/speedy_mine.png");
 		Mine.slow = new Texture("textures/mines/slow_mine.png");
+
+		Obscurities.one = new Texture("textures/obscurities/obscurity_1.png");
+		Obscurities.two = new Texture("textures/obscurities/obscurity_2.png");
+		Obscurities.three = new Texture("textures/obscurities/obscurity_3.png");
+		Obscurities.four = new Texture("textures/obscurities/obscurity_4.png");
 
 	}
 }

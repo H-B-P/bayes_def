@@ -11,6 +11,7 @@ public class Fonts {
 		public static BitmapFont blue;
 		public static BitmapFont green;
 		public static BitmapFont white;
+		public static BitmapFont black;
 	}
 	public static void load () {
 		
@@ -24,5 +25,7 @@ public class Fonts {
 		AcalcFonts.green.setColor(new Color(0.2f, 0.6f, 0.2f, 1.0f));
 		AcalcFonts.white=new BitmapFont(Gdx.files.internal("fonts/acalc_font/greenflame.fnt"));
 		AcalcFonts.white.setColor(new Color(1f, 1f, 1f, 1.0f));
+		AcalcFonts.black=new BitmapFont(Gdx.files.internal("fonts/acalc_font/greenflame.fnt"));
+		AcalcFonts.black.setColor(new Color(0f, 0f, 0f, 1.0f));
 	}
 }
