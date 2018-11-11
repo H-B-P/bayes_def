@@ -40,7 +40,7 @@ public class ProbScreen extends GameScreen{
 	public ProbScreen(final BayesDef bd) {
 		
 		super(bd);
-		shieldsRemaining=5;
+		playerShip.shieldCount=5;
 		
 		level_specific_turret_setup();
 		
@@ -62,7 +62,7 @@ public class ProbScreen extends GameScreen{
 		draw_HUD();
 		
 		for (Turret turret: turrets){
-			turret.rect.y = theShip.y + theShip.height - turret.rect.height - 20;
+			turret.rect.y = playerShip.rect.y + playerShip.rect.height - turret.rect.height - 20;
 		}
 	}
 	
@@ -215,11 +215,7 @@ public class ProbScreen extends GameScreen{
 	}
 	
 	void level_specific_events(){
-		
-		if (seconds==1){
-			spawnMine(-1);
-		}
-		
+
 		if (seconds==4){
 			spawnMine(0);
 		}
@@ -243,9 +239,9 @@ public class ProbScreen extends GameScreen{
 	
 	void check_for_shield_mine_collisions(){
 		for (Mine mine: mines){
-		   if(mine.rect.y<(theShield.y+theShield.height/2) && shieldsRemaining>0) {
+		   if(mine.rect.y<(playerShip.shield.y+playerShip.shield.height/2) && playerShip.shieldCount>0) {
 			     	spawn_explosion(mine.rect.x,mine.rect.y);
-			        shieldsRemaining-=1;
+			        playerShip.shieldCount-=1;
 			        Sounds.mineHitUs.play(Options.SFXVolume*0.4f);
 			        Sounds.mineSplode.play(Options.SFXVolume);
 			        //if (option_flicker){
@@ -259,7 +255,7 @@ public class ProbScreen extends GameScreen{
 	void check_for_ship_mine_collisions(){
 		
 		for (Mine mine: mines){
-		   if(mine.rect.y<(theShip.y+theShip.height) && shieldsRemaining<1) {
+		   if(mine.rect.y<(playerShip.rect.y+playerShip.rect.height) && playerShip.shieldCount<1) {
 				//minecount-=1;
 		     	spawn_explosion(mine.rect.x,mine.rect.y);
 		        Sounds.mineHitUs.play(Options.SFXVolume*0.8f);

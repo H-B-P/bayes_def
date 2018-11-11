@@ -30,7 +30,7 @@ public class BayesDef extends Game {
 		Options.load();
 		
 		
-		this.setScreen(new BayesScreen(this)); //Hand off to title screen.
+		this.setScreen(new ProbScreen(this)); //Hand off to title screen.
 		
 	}
 

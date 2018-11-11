@@ -43,7 +43,7 @@ public class BayesScreen extends GameScreen{
 	public BayesScreen(final BayesDef bd) {
 		
 		super(bd);
-		shieldsRemaining=5;
+		playerShip.shieldCount=5;
 		
 		vane_setup();
 		
@@ -90,7 +90,7 @@ public class BayesScreen extends GameScreen{
 		//draw_HUD();
 		
 		for (Vane vane: vanes){
-			vane.rect.y = theShip.y + theShip.height - vane.rect.height - 15;
+			vane.rect.y = playerShip.rect.y + playerShip.rect.height - vane.rect.height - 15;
 		}
 		
 		autocalc();
@@ -377,10 +377,10 @@ void do_firing_things(){
 	
 	void check_for_ship_shot_collisions(){
 		for (Shot shot: shots){
-			if (shot.rect.y<theShield.y && !shot.doomedToMiss){
+			if (shot.rect.y<playerShip.shield.y && !shot.doomedToMiss){
 				Sounds.deShield.play(Options.SFXVolume*0.5f);
 				shots.removeValue(shot, true);
-				shieldsRemaining -= 1;
+				playerShip.shieldCount -= 1;
 			}
 		}
 	}
@@ -450,7 +450,7 @@ void do_firing_things(){
 	void draw_miss_statements(){
 		batch.begin();
 		for (Shot shot: shots){
-			if (shot.rect.y<theShield.y && shot.rect.overlaps(screenProper)){
+			if (shot.rect.y<playerShip.shield.y && shot.rect.overlaps(screenProper)){
 				if (shot.doomedToMiss){
 					Fonts.AcalcFonts.black.draw(batch, "MISS", shot.rect.x-10, shot.rect.y+10);
 				}

@@ -22,6 +22,7 @@ import com.bayesdef.objects.Turret;
 import com.bayesdef.objects.Vane;
 import com.bayesdef.objects.Symbol;
 import com.bayesdef.objects.EnemyShip;
+import com.bayesdef.objects.PlayerShip;
 import com.bayesdef.resources.Textures;
 
 public class GameScreen extends SpaceScreen{
@@ -33,6 +34,8 @@ public class GameScreen extends SpaceScreen{
 	Array<Symbol> symbols;
 	Array<Vane> vanes;
 	Array<EnemyShip> enemyships;
+	
+	PlayerShip playerShip;
 	
 	Rectangle menuButtonRect = new Rectangle(230,420,100,40);
     Rectangle fireButtonRect = new Rectangle(10,420,100,40);
@@ -50,6 +53,8 @@ public class GameScreen extends SpaceScreen{
 		shots = new Array<Shot>();
 		symbols = new Array<Symbol>();
 		enemyships = new Array<EnemyShip>();
+		
+		playerShip = new PlayerShip();
 
 	}
 	
@@ -90,6 +95,8 @@ public class GameScreen extends SpaceScreen{
 		for (EnemyShip enemyship:enemyships){
 			enemyship.update_posn(delta*TIMESPEED);
 		}
+		
+		playerShip.update_posn(delta*TIMESPEED);
 		
 		time_out_explosions();
 		
@@ -138,6 +145,9 @@ public class GameScreen extends SpaceScreen{
 	//Drawing
 	
 	public void draw_everything(){
+		
+		draw_playership();
+		
 		draw_mines();
 		draw_explosions();
 		
@@ -151,6 +161,27 @@ public class GameScreen extends SpaceScreen{
 		
 		batch.draw(Textures.statusBar, 0, 400);
 		batch.draw(Textures.letterboxPoncho, -640, -960);
+	}
+	
+	void draw_playership(){
+		
+		batch.draw(Textures.theShip, playerShip.rect.x, playerShip.rect.y);
+		
+		if (playerShip.shieldCount==1){
+			batch.draw(Textures.Shields.one, playerShip.shield.x, playerShip.shield.y);
+		}
+		if (playerShip.shieldCount==2){
+			batch.draw(Textures.Shields.two, playerShip.shield.x, playerShip.shield.y);
+		}
+		if (playerShip.shieldCount==3){
+			batch.draw(Textures.Shields.three, playerShip.shield.x, playerShip.shield.y);
+		}
+		if (playerShip.shieldCount==4){
+			batch.draw(Textures.Shields.four, playerShip.shield.x, playerShip.shield.y);
+		}
+		if (playerShip.shieldCount==5){
+			batch.draw(Textures.Shields.five, playerShip.shield.x, playerShip.shield.y);
+		}
 	}
 	
 	void draw_mines(){
