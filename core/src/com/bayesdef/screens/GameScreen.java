@@ -217,6 +217,19 @@ public class GameScreen extends SpaceScreen{
 		for (EnemyShip enemyship: enemyships){
 			level_specific_enemyship_drawing(enemyship);
 			batch.draw(enemyship.turret.currentT, enemyship.turret.rect.x, enemyship.turret.rect.y, 40, 40, 0, 0, 40, 40, false, true);
+			
+			if (enemyship.shieldCount==1){
+				batch.draw(Textures.Shields.Enemy.one, enemyship.shield.x, enemyship.shield.y);
+			}
+			if (enemyship.shieldCount==2){
+				batch.draw(Textures.Shields.Enemy.two, enemyship.shield.x, enemyship.shield.y);
+			}
+			if (enemyship.shieldCount==3){
+				batch.draw(Textures.Shields.Enemy.three, enemyship.shield.x, enemyship.shield.y);
+			}
+			if (enemyship.shieldCount==4){
+				batch.draw(Textures.Shields.Enemy.four, enemyship.shield.x, enemyship.shield.y);
+			}
 		}
 	}
 	

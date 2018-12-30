@@ -21,6 +21,10 @@ public class EnemyShip {
 	public boolean actuallyExists=true;
 	
    public Turret turret;
+   public Mine attackingMine;
+   
+   public Rectangle shield;
+   public int shieldCount=1;
    
    public float circleChance;
    public float octagonChance;
@@ -45,6 +49,12 @@ public class EnemyShip {
 	   rect.height = 60;
 	   rect.x = (xposn * 50f+160f)-30f;
 	   rect.y=440;
+	   
+	   shield = new Rectangle();
+	   shield.width=80;
+	   shield.height=5;
+	   shield.x=rect.x-10;
+	   shield.y=rect.y-15;
 	   
 	   vertVel = -70;
    }
@@ -152,8 +162,12 @@ public class EnemyShip {
    public void update_posn(float delta){
 	   
 	   rect.y = Math.max(rect.y+vertVel*delta, 300);
-	   turret.rect.x = rect.x+10;
-	   turret.rect.y = rect.y+10;
+	   
+	   turret.rect.x = rect.x + 10;
+	   turret.rect.y = rect.y + 10;
+	   
+	   shield.x = rect.x - 10;
+       shield.y = rect.y - 15;
 	   
    }
 }

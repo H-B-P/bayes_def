@@ -22,6 +22,7 @@ import com.bayesdef.objects.Symbol;
 import com.bayesdef.objects.Turret;
 import com.bayesdef.objects.EnemyShip;
 import com.bayesdef.objects.Vane;
+import com.bayesdef.objects.Explosion;
 import com.bayesdef.resources.BGM;
 import com.bayesdef.resources.Fonts;
 import com.bayesdef.resources.Options;
@@ -46,10 +47,6 @@ public class BayesScreen extends GameScreen{
 		playerShip.shieldCount=5;
 		
 		vane_setup();
-		
-		spawnEnemyShip(-2,0.2f, false);
-		spawnEnemyShip(0,0.5f, false);
-		spawnEnemyShip(2,0.8f, true);
 		
 		BGM.campaignMusic.setLooping(true);
 		BGM.campaignMusic.play();
@@ -77,9 +74,9 @@ public class BayesScreen extends GameScreen{
 	public void render(float delta){
 		game_render(delta);
 		
-		//check_for_shield_mine_collisions();
-		//check_for_ship_mine_collisions();
-		//check_for_shot_mine_collisions();
+		check_for_shield_mine_collisions();
+		check_for_ship_mine_collisions();
+		check_for_shot_mine_collisions();
 		check_for_symbol_enemyship_collisions();
 		check_for_ship_shot_collisions();
 		
@@ -100,11 +97,7 @@ public class BayesScreen extends GameScreen{
 	// ===Implications of Status===
 	
 	void do_status_relevant_things(){
-		if (currentStatus.equals("bowling")){
-			TIMESPEED=1;
-			do_bowling_things();
-		}
-		else if (currentStatus.equals("waiting")){
+		if (currentStatus.equals("waiting")){
 			TIMESPEED=1;
 			do_waiting_things();
 		}
@@ -116,9 +109,66 @@ public class BayesScreen extends GameScreen{
 			TIMESPEED=0.1f;
 			do_firing_things();
 		}
+		else if (currentStatus.equals("bowling")){
+			TIMESPEED=1f;
+			for (Shot shot:shots){
+				if (shot.rect.overlaps(screenProper)){
+					TIMESPEED=0.1f;
+				}
+			}
+			for (Mine mine:mines){
+				if (mine.beingDetained){
+					TIMESPEED=0.1f;
+				}
+			}
+			//for (Explosion explosion:explosions){
+			//	TIMESPEED=0.1f;
+			//}
+			do_bowling_things();
+		}
 	}
 	
 	void do_bowling_things(){
+		playerShip.vertVel=-140;
+		
+		draw_bowling_targeting();
+		draw_bowling_miss_statements();
+		
+		if (Gdx.input.justTouched()){
+			for (EnemyShip enemyship: enemyships){
+				if (enemyship.rect.contains(tp_x,tp_y) && enemyship.attackingMine==null){
+					spawnMine(enemyship);
+				}
+			}
+		}
+		
+		for (EnemyShip enemyship:enemyships){
+			if (enemyship.attackingMine!=null){
+				if (enemyship.attackingMine.beingDetained || !enemyship.attackingMine.actuallyExists){
+					enemyship.attackingMine=null;
+				}
+			}
+		}
+		
+		for (EnemyShip enemyship: enemyships){
+			if (enemyship.attackingMine!=null){
+				if (enemyship.attackingMine.rect.y>100 & enemyship.turret.targeted==true){
+					Sounds.fire.play(Options.SFXVolume*0.3f);
+					Shot shot = new Shot(enemyship.turret.rect, enemyship.attackingMine.rect.x+enemyship.attackingMine.rect.width/2, enemyship.attackingMine.rect.y+enemyship.attackingMine.rect.height/2, 5000, enemyship.turret.determine_output());
+					shot.targetMine = enemyship.attackingMine;
+					shots.add(shot);
+					enemyship.update_chances_on_shoot(shot.type);
+					enemyship.turret.targeted=false;
+					
+					
+					enemyship.turret.firingTime=totalTime;
+					enemyship.turret.currentT=enemyship.turret.firingT;
+				}
+			}
+			if ((enemyship.turret.firingTime+0.05f)<totalTime){
+				enemyship.turret.currentT=enemyship.turret.normalT;
+		   }
+		}
 		
 	}
 	
@@ -126,18 +176,21 @@ public class BayesScreen extends GameScreen{
 		if ((seconds+1)<totalTime){
 			seconds+=1;
 			System.out.println(seconds);
-			if (any_targetable_ships()){
+			if (any_obscured_ships()){
+				currentStatus="bowling";
+			}
+			else if (any_targetable_ships()){
 				currentStatus="targeting";
 			}
 			level_specific_events();
 		}
 	}
 	
-void do_targeting_things(){
+	void do_targeting_things(){
 		
 		//Draw targeting
 		
-		draw_targeting();
+		draw_vane_targeting();
 		//autocalc();
 		
 		//Change to tapped turrets
@@ -195,8 +248,7 @@ void do_targeting_things(){
 		
 	}
 	
-void do_firing_things(){
-
+	void do_firing_things(){
 	
 	batch.begin();
 	for (Vane vane:vanes){
@@ -227,7 +279,7 @@ void do_firing_things(){
 	}
 	batch.end();
 	
-	draw_targeting();
+	draw_vane_targeting();
 	draw_miss_statements();
 	
 	for (Vane vane: vanes){
@@ -311,13 +363,23 @@ void do_firing_things(){
 	
 	void level_specific_events(){
 		
+		if (seconds==5){
+			spawnEnemyShip(-2,0.2f, false);
+			spawnEnemyShip(0,0.5f, false);
+			spawnEnemyShip(2,0.8f, true);
+		}
+		
+		if (seconds==6){
+			playerShip.vertVel=-100;
+		}
+		
 	}
 	
 	@Override
 	
 	void level_specific_enemyship_drawing(EnemyShip enemyShip){
 		
-		float delter = enemyShip.originalCircleChance*10-5;
+		float delter = 5 - enemyShip.originalCircleChance*10;
 		
 		batch.draw(Textures.ShipParts.Engines.Fronts.one, enemyShip.rect.x-10, enemyShip.rect.y+40-delter);
 		batch.draw(Textures.ShipParts.Engines.Backs.one, enemyShip.rect.x-10, enemyShip.rect.y+40+delter);
@@ -385,6 +447,62 @@ void do_firing_things(){
 		}
 	}
 	
+	void check_for_ship_mine_collisions(){
+		for (EnemyShip enemyship: enemyships){
+			if (enemyship.attackingMine!=null){
+				if (enemyship.attackingMine.rect.overlaps(enemyship.rect)){
+					//Sounds.mineSplode.play(Options.SFXVolume*0.4f);
+					spawn_explosion(enemyship.attackingMine.rect.x, enemyship.attackingMine.rect.y);
+					mines.removeValue(enemyship.attackingMine, true);
+					enemyship.attackingMine.actuallyExists=false;
+					enemyship.attackingMine = null;
+					//seperate these two events?
+					Sounds.mineSplode.play(Options.SFXVolume*0.8f);
+					spawn_big_explosion(enemyship.rect.x, enemyship.rect.y);
+					enemyships.removeValue(enemyship, true);
+				}
+			}
+		}
+	}
+	
+	void check_for_shield_mine_collisions(){
+		for (EnemyShip enemyship: enemyships){
+			if (enemyship.attackingMine!=null){
+				if ((enemyship.attackingMine.rect.y+enemyship.attackingMine.rect.height > enemyship.shield.y) && enemyship.shieldCount>0){
+					spawn_explosion(enemyship.attackingMine.rect.x, enemyship.attackingMine.rect.y);
+					
+			        enemyship.shieldCount-=1;
+			        Sounds.mineSplode.play(Options.SFXVolume);
+			        //if (option_flicker){
+			        //	shipshield_t=shipshield_flicker_t;
+			        //
+			        mines.removeValue(enemyship.attackingMine,true);
+			        enemyship.attackingMine=null;
+				}
+			}
+		}
+	}
+	
+	void check_for_shot_mine_collisions(){
+		for (Shot shot: shots){
+			if ((shot.rect.y+2)<shot.targetMine.rect.y && !shot.doomedToMiss){
+				if (shot.type.equals("capture")){
+					Sounds.capture.play(Options.SFXVolume*0.8f);
+					shot.targetMine.beingDetained=true;
+					exit_stage_whatever(shot.targetMine);
+					shots.removeValue(shot, true);
+				}
+				if (shot.type.equals("destroy")){
+					Sounds.mineSplode.play(Options.SFXVolume*0.6f);
+					spawn_explosion(shot.targetMine.rect.x, shot.targetMine.rect.y);
+					shot.targetMine.actuallyExists=false;
+					mines.removeValue(shot.targetMine, true);
+					shots.removeValue(shot, true);
+				}
+			}
+		}
+	}
+	
 	// ===Energy Functions===
 	
 	Texture shape_appropriate_target(String shape){
@@ -401,7 +519,7 @@ void do_firing_things(){
 	
 	// ===Drawing Functions===
 	
-	void draw_targeting(){
+	void draw_vane_targeting(){
 		batch.begin();
 		if (currentlyActiveVane!=null){
 			batch.draw(currentlyActiveVane.selectedT, currentlyActiveVane.rect.x, currentlyActiveVane.rect.y);
@@ -420,26 +538,26 @@ void do_firing_things(){
 		batch.end();
 	}
 	
+	void draw_bowling_targeting(){
+		batch.begin();
+		batch.draw(Textures.Targets.Mine.standard, tp_x-30, tp_y-30);
+    	draw_gray_dotted_line(tp_x, playerShip.rect.y+playerShip.rect.height-100,tp_x,tp_y,10);
+		
+		batch.draw(Textures.statusBar, 0, 400);
+		batch.end();
+	}
+	
 	void autocalc(){
 		batch.begin();
 		
 		for (EnemyShip enemyship:enemyships){
 		   if (screenProper.overlaps(enemyship.rect) && enemyship.obscured){
 			   
-			   Fonts.AcalcFonts.gray.draw(batch, present_float(enemyship.circleChance*100f)+"%", enemyship.rect.x, enemyship.rect.y-20, 81, 1, true);
-			   batch.draw(Textures.Icons.circle, enemyship.rect.x-10, enemyship.rect.y-35);
+			   Fonts.AcalcFonts.gray.draw(batch, present_float(enemyship.circleChance*100f)+"%", enemyship.rect.x, enemyship.rect.y-30, 81, 1, true);
+			   batch.draw(Textures.Icons.circle, enemyship.rect.x-10, enemyship.rect.y-45);
 			      
-			   Fonts.AcalcFonts.gray.draw(batch, present_float(enemyship.triangleChance*100f)+"%", enemyship.rect.x, enemyship.rect.y-45, 81, 1, true);
-			   batch.draw(Textures.Icons.triangle, enemyship.rect.x-10, enemyship.rect.y-60);
-			   
-//			   Fonts.AcalcFonts.gray.draw(batch, present_float(enemyship.circleChance*100f)+"%", enemyship.rect.x, enemyship.rect.y-60, 81, 1, true);
-//			   batch.draw(Textures.Icons.circle, enemyship.rect.x-10, enemyship.rect.y-75);
-//			   
-//			   Fonts.AcalcFonts.gray.draw(batch, present_float(enemyship.circleChance*100f)+"%", enemyship.rect.x, enemyship.rect.y-85, 81, 1, true);
-//			   batch.draw(Textures.Icons.circle, enemyship.rect.x-10, enemyship.rect.y-100);
-//			   
-//			   Fonts.AcalcFonts.gray.draw(batch, present_float(enemyship.circleChance*100f)+"%", enemyship.rect.x, enemyship.rect.y-110, 81, 1, true);
-//			   batch.draw(Textures.Icons.circle, enemyship.rect.x-10, enemyship.rect.y-125);
+			   Fonts.AcalcFonts.gray.draw(batch, present_float(enemyship.triangleChance*100f)+"%", enemyship.rect.x, enemyship.rect.y-55, 81, 1, true);
+			   batch.draw(Textures.Icons.triangle, enemyship.rect.x-10, enemyship.rect.y-70);
 		   }
 		}
 		
@@ -450,14 +568,31 @@ void do_firing_things(){
 	void draw_miss_statements(){
 		batch.begin();
 		for (Shot shot: shots){
-			if (shot.rect.y<playerShip.shield.y && shot.rect.overlaps(screenProper)){
+			if (shot.rect.y<playerShip.shield.y){
 				if (shot.doomedToMiss){
 					Fonts.AcalcFonts.black.draw(batch, "MISS", shot.rect.x-10, shot.rect.y+10);
+
 				}
 			}
 		}
 		batch.end();
 	}
+	
+	void draw_bowling_miss_statements(){
+		batch.begin();
+		for (Shot shot: shots){
+			if (shot.targetMine!=null){
+				if (shot.rect.y<shot.targetMine.rect.y){
+					if (shot.doomedToMiss){
+						Fonts.AcalcFonts.white.draw(batch, "MISS", shot.rect.x-10, shot.rect.y+10);
+	
+					}
+				}
+			}
+		}
+		batch.end();
+	}
+
 	
 	void draw_HUD(){
 		batch.begin();
@@ -475,6 +610,14 @@ void do_firing_things(){
 		   }
 	}
 	
+	void draw_gray_dotted_line(float start_x, float start_y, float finish_x, float finish_y, int number_of_divs){
+		   for (int q=1; q<number_of_divs; q++){
+			   float centre_x=start_x+((float)q/(float)number_of_divs)*(finish_x-start_x);
+			   float centre_y=start_y+((float)q/(float)number_of_divs)*(finish_y-start_y);
+			   batch.draw(Textures.Targets.Mine.lineDot, centre_x-1, centre_y-1);
+		   }
+	}
+	
 	// ===Spawning Functions===
 	
 	void spawnEnemyShip(int xposn, float cChance, boolean obs) {
@@ -484,12 +627,28 @@ void do_firing_things(){
 		         
 	}
 	
+	void spawnMine(EnemyShip enemyship){
+		Mine mine = new Mine(enemyship);
+		   enemyship.attackingMine=mine;
+		   enemyship.turret.targeted=true;
+		   mines.add(enemyship.attackingMine);
+	}
+	
 	// ===
 	
 	boolean any_targetable_ships(){
 		   for (EnemyShip enemyship:enemyships){
 			   //if (enemyship.rect.overlaps(screenProper)){
 			   if (screenProper.contains(enemyship.rect)){
+				   return true;
+			   }
+		   }
+		   return false;
+	}
+	
+	boolean any_obscured_ships(){
+		   for (EnemyShip enemyship:enemyships){
+			   if (enemyship.rect.overlaps(screenProper) && enemyship.obscured){
 				   return true;
 			   }
 		   }

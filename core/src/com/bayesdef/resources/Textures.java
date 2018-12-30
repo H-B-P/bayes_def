@@ -18,6 +18,13 @@ public class Textures {
 		public static Texture three;
 		public static Texture four;
 		public static Texture five;
+		
+		public static class Enemy{
+			public static Texture one;
+			public static Texture two;
+			public static Texture three;
+			public static Texture four;
+		}
 	}
 	
 	public static class Turrets{
@@ -107,6 +114,7 @@ public class Textures {
 		
 		public static class Mine{
 			public static Texture standard;
+			public static Texture lineDot;
 		}
 	}
 	
@@ -182,6 +190,11 @@ public class Textures {
 		Shields.four=new Texture("textures/shields/shield4.png");
 		Shields.five=new Texture("textures/shields/shield5.png");
 		
+		Shields.Enemy.one=new Texture("textures/shields/enemyshield1.png");
+		Shields.Enemy.two=new Texture("textures/shields/enemyshield2.png");
+		Shields.Enemy.three=new Texture("textures/shields/enemyshield3.png");
+		Shields.Enemy.four=new Texture("textures/shields/enemyshield4.png");
+		
 		Turrets.Triangle.normal=new Texture("textures/turrets/turret_triangle.png");
 		Turrets.Triangle.firing=new Texture("textures/turrets/turret_triangle_firing.png");
 		Turrets.Triangle.selected=new Texture("textures/turrets/turret_triangle_selected.png");
@@ -240,6 +253,10 @@ public class Textures {
 		Targets.Vane.circle = new Texture("textures/targets/vane/target_circle.png");
 		
 		Targets.Vane.lineDot = new Texture("textures/targets/vane/line_dot.png");
+		
+		Targets.Mine.standard = new Texture("textures/targets/mine/target_standard.png");
+		
+		Targets.Mine.lineDot = new Texture("textures/targets/mine/line_dot.png");
 		
 		Icons.capture = new Texture("textures/icons/iconic_capture.png");
 		Icons.destroy = new Texture("textures/icons/iconic_boom.png");

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.bayesdef.objects.EnemyShip;
 
 public class Mine {
 	public Rectangle rect;
@@ -24,11 +25,23 @@ public class Mine {
    
    //EnemyShip target_enemy_ship;
    
+   public Mine(EnemyShip enemyship){
+	   
+	   rect = new Rectangle();
+	   rect.width = 40;
+	   rect.height = 40;
+	   rect.x = enemyship.turret.rect.x;
+	   rect.y=-60;
+	   
+	   vertVel=115;
+	   
+   }
+   
    public Mine(int xposn){
 	   
 	   rect = new Rectangle();
-	   rect.width = 41;
-	   rect.height = 41;
+	   rect.width = 40;
+	   rect.height = 40;
 	   rect.x = (xposn * 40f+160f)-20f;
 	   rect.y=440;
 	   
