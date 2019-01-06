@@ -11,11 +11,15 @@ import com.badlogic.gdx.math.Rectangle;
 public class PlayerShip {
 	public Rectangle rect;
 	
+	public float horzAcc;
+	public float vertAcc;
+	
 	public float horzVel;
 	public float vertVel;
 	
 	
 	public boolean actuallyExists=true;
+	public boolean restrained=true;
 	
 	public Rectangle shield;
 	
@@ -44,11 +48,18 @@ public class PlayerShip {
    
    public void update_posn(float delta){
 	   
-	   rect.x = rect.x+horzVel*delta;
-	   rect.y = Math.min(Math.max(rect.y+vertVel*delta, -60-rect.height),120-rect.height);
+	   horzVel = horzVel + horzAcc*delta;
+	   vertVel = vertVel + vertAcc*delta;
 	   
+	   if (restrained){
+		   rect.x = rect.x+horzVel*delta;
+		   rect.y = Math.min(Math.max(rect.y+vertVel*delta, -60-rect.height),120-rect.height);
+	   }
+	   else{
+		   rect.x = rect.x + horzVel*delta;
+		   rect.y = rect.y + vertVel*delta;
+	   }
 	   shield.x=rect.x + 20;
        shield.y=rect.y+rect.height+15;
-	   
    }
 }

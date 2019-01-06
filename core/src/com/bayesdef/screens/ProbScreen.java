@@ -10,9 +10,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.Array;
-//import com.hbp.probdef.RT_Kaboom;
-//import com.hbp.probdef.Mine;
-//import com.hbp.probdef.Turret;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.Input.Keys;
 import com.bayesdef.BayesDef;
@@ -36,11 +33,15 @@ public class ProbScreen extends GameScreen{
     Turret currentlyActiveTurret = null;
     
     float volleyEndingTime=0;
+    float hangStart=0f;
     
-	public ProbScreen(final BayesDef bd) {
+	public ProbScreen(final BayesDef bd, int mc) {
 		
 		super(bd);
-		playerShip.shieldCount=5;
+		
+		minecount=mc;
+		
+		playerShip.shieldCount=3;
 		
 		level_specific_turret_setup();
 		
@@ -62,7 +63,7 @@ public class ProbScreen extends GameScreen{
 		draw_HUD();
 		
 		for (Turret turret: turrets){
-			turret.rect.y = playerShip.rect.y + playerShip.rect.height - turret.rect.height - 20;
+			turret.rect.y = playerShip.rect.y + playerShip.rect.height - turret.rect.height - 25;
 		}
 	}
 	
@@ -77,6 +78,14 @@ public class ProbScreen extends GameScreen{
 		if (currentStatus.equals("targeting")){
 			TIMESPEED=0;
 			do_targeting_things();
+		}
+		if (currentStatus.equals("hanging")){
+			TIMESPEED=0;
+			draw_targeting();
+			autocalc();
+			if (playerTime>hangStart+0.7f){
+				currentStatus="firing";
+			}
 		}
 		if (currentStatus.equals("firing")){
 			TIMESPEED=0.1f;
@@ -142,11 +151,8 @@ public class ProbScreen extends GameScreen{
 		
 		if (currentlyActiveTurret==null && (!Options.waitForFiringButton || Gdx.input.isKeyJustPressed(Keys.SPACE))){
 			set_up_firing_times();
-			currentStatus="firing";
-		}
-		if (Gdx.input.justTouched() && fireButtonRect.contains(tp_x,tp_y)){
-			set_up_firing_times();
-			currentStatus="firing";
+			hangStart=playerTime;
+			currentStatus="hanging";
 		}
 		
 	}
@@ -194,45 +200,94 @@ public class ProbScreen extends GameScreen{
 	void level_specific_turret_setup(){
 		
 		Turret turretOne = new Turret("circle");
-		Turret turretTwo = new Turret("triangle");
+		Turret turretTwo = new Turret("circleplus");
+		Turret turretThree = new Turret("circleplusplus");
 		
 		turretOne.rect.x = 50;
-		turretTwo.rect.x = 230;
+		turretTwo.rect.x = 140;
+		turretThree.rect.x = 230;
 		
-		turretOne.rect.y = 60;
-		turretTwo.rect.y = 60;
+		turretOne.rect.y = 40;
+		turretTwo.rect.y = 40;
+		turretThree.rect.y = 40;
 		
 		
-		turretOne.targetingXOffset=-19;
-		turretOne.targetingYOffset=0;
-		
-		turretTwo.targetingXOffset=0;
-		turretTwo.targetingYOffset=-19;
+		turretOne.targetingXOffset=-15;
+		turretOne.targetingYOffset=15;
+
+		turretTwo.targetingXOffset=15;
+		turretTwo.targetingYOffset=15;
+
+		turretThree.targetingXOffset=0;
+		turretThree.targetingYOffset=-15;
 		
 		
 		turrets.add(turretOne);
 		turrets.add(turretTwo);
+		turrets.add(turretThree);
 	}
 	
 	void level_specific_events(){
-
-		if (seconds==4){
-			spawnMine(0);
-		}
-		
+//		if (seconds==5){
+//			waveno=1;
+//			spawnMine(0);
+//		}
+//		
+//		if (seconds==10){
+//			waveno=2;
+//			spawnMine(-2);
+//			spawnMine(2);
+//		}
+//		
+//		if (seconds==15){
+//			waveno=3;
+//			spawnMine(-3, "slow");
+//			spawnMine(-1, "slow");
+//			spawnMine(1, "slow");
+//		}
+//		
+//		if (seconds==20){
+//			waveno=4;
+//			spawnMine(1, "fast");
+//		}
+//		if (seconds==25){
+//			waveno=5;
+//			spawnMine(1, "slow");
+//			spawnMine(-2);
+//			spawnMine(3);
+//		}
+//		if (seconds==30){
+//			waveno=6;
+//			spawnMine(-3, "slow");
+//			spawnMine(0);
+//			spawnMine(3, "fast");
+//		}
+//		if (seconds==35){
+//			waveno=7;
+//			spawnMine(-3, "slow");
+//			spawnMine(-1);
+//			spawnMine(2, "slow");
+//		}
+//		if (seconds==40){
+//			waveno=8;
+//			spawnMine(-2, "slow");
+//			spawnMine(1, "fast");
+//			spawnMine(3, "slow");
+//		}
 		if (seconds==10){
-			spawnMine(-2);
-			spawnMine(2);
+			playerShip.restrained=false;
+			playerShip.vertVel=40;
+			playerShip.vertAcc=80;
 		}
-		
 		if (seconds==15){
-			spawnMine(0, "slow");
+			game.setScreen(new Level_2(game, minecount));
 		}
-		
-		if (seconds==20){
-			spawnMine(-3);
-			spawnMine(1, "speedy");
-		}
+	}
+	
+	void level_specific_huddery(){
+		Fonts.AcalcFonts.black.draw(batch, "=== Level 1 ===", 10, 467, 150, 1, true);
+		Fonts.AcalcFonts.black.draw(batch, "WAVE: "+waveno+"/8", 10, 445, 150, 1, true);
+		Fonts.AcalcFonts.black.draw(batch, "DECOYS: NONE", 10, 425, 150, 1, true);
 	}
 	
 	// ===Check Functions===
@@ -328,8 +383,8 @@ public class ProbScreen extends GameScreen{
 		for (Turret turret: turrets){
 			if (turret.targeted && turret.targetMine!=null){
 				if (!turret.targetMine.beingDetained && turret.targetMine.actuallyExists){
-					batch.draw(turret.targetT, turret.targetMine.rect.x+turret.targetingXOffset, turret.targetMine.rect.y+turret.targetingYOffset);
-					draw_orange_dotted_line(turret.rect.x+turret.rect.width/2f, turret.rect.y+turret.rect.height*3f/4f, turret.targetMine.rect.x+turret.targetMine.rect.width/2+turret.targetingXOffset, turret.targetMine.rect.y+turret.targetMine.rect.height/2-turret.targetingYOffset, 10);
+					batch.draw(turret.targetT, turret.targetMine.rect.x+turret.targetMine.rect.width/2+turret.targetingXOffset-30, turret.targetMine.rect.y+turret.targetMine.rect.height/2+turret.targetingYOffset-30);
+					draw_orange_dotted_line(turret.rect.x+turret.rect.width/2f, turret.rect.y+turret.rect.height*3f/4f, turret.targetMine.rect.x+turret.targetMine.rect.width/2+turret.targetingXOffset, turret.targetMine.rect.y+turret.targetMine.rect.height/2+turret.targetingYOffset, 10);
 				}
 			}
 		}
@@ -366,14 +421,15 @@ public class ProbScreen extends GameScreen{
 				   }
 			   }
 			   
-			   Fonts.AcalcFonts.blue.draw(batch, present_float(capture*100f)+"%", mine.rect.x-12, mine.rect.y-20, 81, 1, true);
+			   Fonts.AcalcFonts.blue.draw(batch, present_float(capture*100f)+"%", mine.rect.x-12, mine.rect.y-20, 80, 1, true);
+			   //batch.draw(Textures.Icons.survive, mine.rect.x-12, mine.rect.y-31);
 			   batch.draw(Textures.Icons.capture, mine.rect.x-12, mine.rect.y-31);
 			      
-			   Fonts.AcalcFonts.gray.draw(batch, present_float(survive*100f)+"%", mine.rect.x-12, mine.rect.y-35, 81, 1, true);
+			   Fonts.AcalcFonts.gray.draw(batch, present_float(survive*100f)+"%", mine.rect.x-12, mine.rect.y-35, 80, 1, true);
 			   batch.draw(Textures.Icons.survive, mine.rect.x-12, mine.rect.y-46);
 			   
-			   Fonts.AcalcFonts.red.draw(batch, present_float(destroy*100f)+"%", mine.rect.x-12, mine.rect.y-50, 81, 1, true);
-			   batch.draw(Textures.Icons.destroy, mine.rect.x-12, mine.rect.y-61);
+			   //Fonts.AcalcFonts.red.draw(batch, present_float(destroy*100f)+"%", mine.rect.x-12, mine.rect.y-50, 80, 1, true);
+			   //batch.draw(Textures.Icons.destroy, mine.rect.x-12, mine.rect.y-61);
 		   }
 		}
 		
@@ -395,8 +451,14 @@ public class ProbScreen extends GameScreen{
 	void draw_HUD(){
 		batch.begin();
 		batch.draw(Textures.statusBar, 0, 400);
-		batch.draw(Textures.Buttons.fire, 20, 420);
+		
+		level_specific_huddery();
+		
+		batch.draw(Textures.Icons.captureCountMineIcon, 165, 427);
+		Fonts.AcalcFonts.black.draw(batch, ""+minecount, 165, 423, 42, 1, true);
+		
 		batch.draw(Textures.Buttons.exit, 220, 420);
+		
 		batch.end();
 	}
 	

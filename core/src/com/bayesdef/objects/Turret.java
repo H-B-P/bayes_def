@@ -115,6 +115,24 @@ public class Turret {
 			   
 			   targetT = Textures.Targets.Turret.circle;
 		   }
+		   if (id.equals("circleplus")){
+			   normalT = Textures.Turrets.CirclePlus.normal;
+			   firingT = Textures.Turrets.CirclePlus.firing;
+			   selectedT = Textures.Turrets.CirclePlus.selected;
+			   silhouetteT = Textures.Turrets.CirclePlus.silhouette;
+			   emptytopT = Textures.Turrets.CirclePlus.emptytop;
+			   
+			   targetT = Textures.Targets.Turret.circle;
+		   }
+		   if (id.equals("circleplusplus")){
+			   normalT = Textures.Turrets.CirclePlusPlus.normal;
+			   firingT = Textures.Turrets.CirclePlusPlus.firing;
+			   selectedT = Textures.Turrets.CirclePlusPlus.selected;
+			   silhouetteT = Textures.Turrets.CirclePlusPlus.silhouette;
+			   emptytopT = Textures.Turrets.CirclePlusPlus.emptytop;
+			   
+			   targetT = Textures.Targets.Turret.circle;
+		   }
 		   currentT = normalT;
 	   }
 	   
@@ -134,8 +152,15 @@ public class Turret {
 		   if (id.equals("octagon")){
 			   destroyChance=0.2f;
 		   }
-		   if (id.equals("circle")){
+		   if (id.contains("circle")){
 			   destroyChance=0;
+		   }
+		   
+		   if (id.equals("circleplus")){
+			   captureMissingChance=0.3f;
+		   }
+		   if (id.equals("circleplusplus")){
+			   captureMissingChance=0.1f;
 		   }
 	   }
 	   
@@ -147,7 +172,7 @@ public class Turret {
 			   return "destroy";
 		   }
 		   else{
-			   if (MathUtils.random()<captureMissingChance){
+			   if (MathUtils.random()>captureMissingChance){
 				   return "capture";
 			   }
 			   else{

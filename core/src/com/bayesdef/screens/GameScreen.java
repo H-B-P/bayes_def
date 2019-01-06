@@ -42,6 +42,10 @@ public class GameScreen extends SpaceScreen{
     
     boolean bayesian = false;
     
+    int minecount=0;
+    
+    int waveno=0;
+    String wavemax="?";
 	public GameScreen(final BayesDef bd) {
 		
 		super(bd);
@@ -119,8 +123,7 @@ public class GameScreen extends SpaceScreen{
 		   for (Mine mine: mines){
 			   if (mine.beingDetained){
 				   if (!mine.rect.overlaps(screenProper)){					   
-					   //captured+=1;
-					   //minecount-=1;
+					   minecount+=1;
 					   mines.removeValue(mine,true);
 				   }
 			   }
@@ -187,8 +190,8 @@ public class GameScreen extends SpaceScreen{
 	void draw_mines(){
 		for(Mine mine: mines) {
 			
-			if (mine.minetype.equals("speedy")){
-				batch.draw(Textures.Mine.speedy, mine.rect.x-20, mine.rect.y-20);
+			if (mine.minetype.equals("fast")){
+				batch.draw(Textures.Mine.fast, mine.rect.x-20, mine.rect.y-20);
 			}
 			else if(mine.minetype.equals("slow")){
 				batch.draw(Textures.Mine.slow, mine.rect.x-20, mine.rect.y-20);				

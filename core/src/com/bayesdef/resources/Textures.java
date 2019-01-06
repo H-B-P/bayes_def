@@ -70,6 +70,20 @@ public class Textures {
 			public static Texture silhouette;
 			public static Texture emptytop;
 		}
+		public static class CirclePlus{
+			public static Texture normal;
+			public static Texture firing;
+			public static Texture selected;
+			public static Texture silhouette;
+			public static Texture emptytop;
+		}
+		public static class CirclePlusPlus{
+			public static Texture normal;
+			public static Texture firing;
+			public static Texture selected;
+			public static Texture silhouette;
+			public static Texture emptytop;
+		}
 		
 	}
 	
@@ -136,7 +150,9 @@ public class Textures {
 		public static Texture capture;
 		public static Texture destroy;
 		public static Texture survive;
-
+		
+		public static Texture captureCountMineIcon;
+		
 		public static Texture circle;
 		public static Texture triangle;
 
@@ -150,7 +166,7 @@ public class Textures {
 	
 	public static class Mine{
 		public static Texture regular;
-		public static Texture speedy;
+		public static Texture fast;
 		public static Texture slow;
 
 	}
@@ -231,6 +247,18 @@ public class Textures {
 		Turrets.Circle.silhouette=new Texture("textures/turrets/turret_circle_silhouette.png");
 		Turrets.Circle.emptytop=new Texture("textures/turrets/turret_circle_emptytop.png");
 		
+		Turrets.CirclePlus.normal=new Texture("textures/turrets/turret_circleplus.png");
+		Turrets.CirclePlus.firing=new Texture("textures/turrets/turret_circleplus_firing.png");
+		Turrets.CirclePlus.selected=new Texture("textures/turrets/turret_circle_selected.png");
+		Turrets.CirclePlus.silhouette=new Texture("textures/turrets/turret_circle_silhouette.png");
+		Turrets.CirclePlus.emptytop=new Texture("textures/turrets/turret_circleplus_emptytop.png");
+		
+		Turrets.CirclePlusPlus.normal=new Texture("textures/turrets/turret_circleplusplus.png");
+		Turrets.CirclePlusPlus.firing=new Texture("textures/turrets/turret_circleplusplus_firing.png");
+		Turrets.CirclePlusPlus.selected=new Texture("textures/turrets/turret_circle_selected.png");
+		Turrets.CirclePlusPlus.silhouette=new Texture("textures/turrets/turret_circle_silhouette.png");
+		Turrets.CirclePlusPlus.emptytop=new Texture("textures/turrets/turret_circleplusplus_emptytop.png");
+		
 		ShipParts.Backs.one=new Texture("textures/ship_components/back_a.png");
 		ShipParts.Fronts.one=new Texture("textures/ship_components/front_a.png");
 		ShipParts.Engines.Fronts.one=new Texture("textures/ship_components/engine_a_front.png");
@@ -265,6 +293,8 @@ public class Textures {
 		Icons.circle = new Texture("textures/icons/iconic_circle.png");
 		Icons.triangle = new Texture("textures/icons/iconic_triangle.png");
 		
+		Icons.captureCountMineIcon = new Texture("textures/icons/big_small_mine_v2.png");
+		
 		
 		Shots.capture = new Texture("textures/shots/shot_capture.png");
 		Shots.destroy = new Texture("textures/shots/shot_destroy.png");
@@ -293,7 +323,7 @@ public class Textures {
 		vaneTrim = new Texture("textures/vanes/vane_outline.png");
 		
 		Mine.regular = new Texture("textures/mines/mine.png");
-		Mine.speedy = new Texture("textures/mines/speedy_mine.png");
+		Mine.fast = new Texture("textures/mines/fast_mine.png");
 		Mine.slow = new Texture("textures/mines/slow_mine.png");
 
 		Obscurities.one = new Texture("textures/obscurities/obscurity_1.png");
