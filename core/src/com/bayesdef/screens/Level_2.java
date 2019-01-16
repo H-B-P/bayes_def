@@ -37,9 +37,9 @@ public class Level_2 extends ProbScreen{
 	
 	void level_specific_turret_setup(){
 		
-		Turret turretOne = new Turret("circle");
-		Turret turretTwo = new Turret("circleplus");
-		Turret turretThree = new Turret("circleplusplus");
+		Turret turretOne = new Turret("circleplusplus");
+		Turret turretTwo = new Turret("circle");
+		Turret turretThree = new Turret("circleplus");
 		Turret turretFour = new Turret("circleplusplus");
 		
 		turretOne.rect.x = 50;
@@ -79,11 +79,106 @@ public class Level_2 extends ProbScreen{
 			spawnMine(0);
 		}
 		if (seconds==10){
+			waveno=2;
+			spawnMine(0, "regular", true, false);
+		}
+		if (seconds==15){
+			waveno=3;
+			spawnMine(-3, "slow", true, false);
+			spawnMine(0, "regular", true, false);
+			spawnMine(3, "fast", true, false);
+		}
+		if (seconds==20){
+			waveno=4;
+			spawnMine(-3, "regular", true, false);
+			spawnMine(-1, "regular", false, false);
+			spawnMine(1, "regular", true, false);
+			spawnMine(3, "regular", false, false);
+		}
+		if (seconds==30){
+			waveno=5;
+			spawnMine(0, "regular", false, false);
+		}
+		if (seconds==31){
+			for (Mine mine: mines){
+				mine.obscured=true;
+			}
+		}
+		if (seconds==35){
+			waveno=6;
+			spawnMine(-1, "regular", false, false);
+			spawnMine(2, "regular", true, false);
+		}
+		if (seconds==36){
+			for (Mine mine: mines){
+				mine.obscured=true;
+			}
+		}
+		if (seconds==40){
+			waveno=7;
+			if (MathUtils.randomBoolean()){
+				spawnMine(-2, "regular", false, false);
+				spawnMine(0, "regular", false, false);
+				spawnMine(2, "regular", true, false);
+			}
+		}
+		if (seconds==41){
+			for (Mine mine: mines){
+				mine.obscured=true;
+			}
+		}
+		if (seconds==45){
+			waveno=8;
+			if (MathUtils.randomBoolean()){
+				spawnMine(-3, "fast", false, false);
+				spawnMine(-1, "fast", true, false);
+				spawnMine(1, "fast", true, false);
+				spawnMine(3, "fast", false, false);
+			}
+			else{
+				spawnMine(-3, "fast", true, false);
+				spawnMine(-1, "fast", false, false);
+				spawnMine(1, "fast", false, false);
+				spawnMine(3, "fast", true, false);
+			}
+		}
+		if (seconds==46){
+			for (Mine mine: mines){
+				mine.obscured=true;
+			}
+		}
+		if (seconds==55){
+			waveno=9;
+			spawnMine(0, "regular", MathUtils.randomBoolean(), true);
+		}
+		if (seconds==60){
+			waveno=10;
+			spawnMine(-2, "regular", MathUtils.randomBoolean(), true);
+			spawnMine(0, "regular", MathUtils.randomBoolean(), true);
+			spawnMine(2, "regular", MathUtils.randomBoolean(), true);
+		}
+		
+		if (seconds==65){
+			waveno=11;
+			spawnMine(-1, "slow", MathUtils.randomBoolean(), true);
+			spawnMine(1, "regular", MathUtils.randomBoolean(), true);
+			spawnMine(3, "slow", MathUtils.randomBoolean(), true);
+		}
+		if (seconds==70){
+			waveno=12;
+			spawnMine(-3, "slow", MathUtils.randomBoolean(), true);
+			spawnMine(0, "regular", MathUtils.randomBoolean(), true);
+			spawnMine(3, "fast", MathUtils.randomBoolean(), true);
+		}
+		
+		
+		
+		if (seconds==77){
 			playerShip.restrained=false;
 			playerShip.vertVel=40;
 			playerShip.vertAcc=40;
 		}
-		if (seconds==15){
+		if (seconds==82){
 			//goto next level
 		}
 	}
@@ -92,8 +187,8 @@ public class Level_2 extends ProbScreen{
 	
 	void level_specific_huddery(){
 		Fonts.AcalcFonts.black.draw(batch, "=== Level 2 ===", 10, 467, 150, 1, true);
-		Fonts.AcalcFonts.black.draw(batch, "WAVE: "+waveno+"/10", 10, 445, 150, 1, true);
-		Fonts.AcalcFonts.black.draw(batch, "DECOYS: SOME", 10, 425, 150, 1, true);
+		Fonts.AcalcFonts.black.draw(batch, "WAVE: "+waveno+"/12", 10, 445, 150, 1, true);
+		Fonts.AcalcFonts.black.draw(batch, "GHOSTS: SOME", 10, 425, 150, 1, true);
 	}
 	
 	

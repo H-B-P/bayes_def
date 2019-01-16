@@ -31,6 +31,7 @@ public class ProbScreen extends GameScreen{
     String currentStatus = "waiting";
     
     Turret currentlyActiveTurret = null;
+    Mine currentlySelectedMine = null;
     
     float volleyEndingTime=0;
     float hangStart=0f;
@@ -125,10 +126,7 @@ public class ProbScreen extends GameScreen{
 		//Target turrets
 		
 		if (currentlyActiveTurret!=null){
-			if (Gdx.input.isKeyJustPressed(Keys.SPACE)){
-				currentlyActiveTurret.targeted = true;
-			}
-			else if (Gdx.input.justTouched()){
+			if (Gdx.input.justTouched()){
 				for (Mine mine: mines){
 					if (mine.rect.contains(tp_x,tp_y)){
 						currentlyActiveTurret.targeted = true;
@@ -137,6 +135,8 @@ public class ProbScreen extends GameScreen{
 				}
 			}
 		}		
+		
+		check_for_keypresses();
 		
 		//Pick new turrets
 		
@@ -150,6 +150,7 @@ public class ProbScreen extends GameScreen{
 		//Handle handover
 		
 		if (currentlyActiveTurret==null && (!Options.waitForFiringButton || Gdx.input.isKeyJustPressed(Keys.SPACE))){
+			currentlySelectedMine=null;
 			set_up_firing_times();
 			hangStart=playerTime;
 			currentStatus="hanging";
@@ -228,58 +229,58 @@ public class ProbScreen extends GameScreen{
 	}
 	
 	void level_specific_events(){
-//		if (seconds==5){
-//			waveno=1;
-//			spawnMine(0);
-//		}
-//		
-//		if (seconds==10){
-//			waveno=2;
-//			spawnMine(-2);
-//			spawnMine(2);
-//		}
-//		
-//		if (seconds==15){
-//			waveno=3;
-//			spawnMine(-3, "slow");
-//			spawnMine(-1, "slow");
-//			spawnMine(1, "slow");
-//		}
-//		
-//		if (seconds==20){
-//			waveno=4;
-//			spawnMine(1, "fast");
-//		}
-//		if (seconds==25){
-//			waveno=5;
-//			spawnMine(1, "slow");
-//			spawnMine(-2);
-//			spawnMine(3);
-//		}
-//		if (seconds==30){
-//			waveno=6;
-//			spawnMine(-3, "slow");
-//			spawnMine(0);
-//			spawnMine(3, "fast");
-//		}
-//		if (seconds==35){
-//			waveno=7;
-//			spawnMine(-3, "slow");
-//			spawnMine(-1);
-//			spawnMine(2, "slow");
-//		}
-//		if (seconds==40){
-//			waveno=8;
-//			spawnMine(-2, "slow");
-//			spawnMine(1, "fast");
-//			spawnMine(3, "slow");
-//		}
+		if (seconds==5){
+			waveno=1;
+			spawnMine(0);
+		}
+		
 		if (seconds==10){
+			waveno=2;
+			spawnMine(-2);
+			spawnMine(2);
+		}
+		
+		if (seconds==15){
+			waveno=3;
+			spawnMine(-3, "slow");
+			spawnMine(-1, "slow");
+			spawnMine(1, "slow");
+		}
+		
+		if (seconds==20){
+			waveno=4;
+			spawnMine(1, "fast");
+		}
+		if (seconds==25){
+			waveno=5;
+			spawnMine(-2);
+			spawnMine(1, "slow");
+			spawnMine(3);
+		}
+		if (seconds==30){
+			waveno=6;
+			spawnMine(-3, "slow");
+			spawnMine(0);
+			spawnMine(3, "fast");
+		}
+		if (seconds==35){
+			waveno=7;
+			spawnMine(-3, "slow");
+			spawnMine(-1);
+			spawnMine(2, "slow");
+		}
+		if (seconds==40){
+			waveno=8;
+			spawnMine(-2, "slow");
+			spawnMine(1, "fast");
+			spawnMine(3, "slow");
+		}
+		if (seconds==47){
 			playerShip.restrained=false;
 			playerShip.vertVel=40;
 			playerShip.vertAcc=80;
 		}
-		if (seconds==15){
+		if (seconds==52){
 			game.setScreen(new Level_2(game, minecount));
 		}
 	}
@@ -287,7 +288,7 @@ public class ProbScreen extends GameScreen{
 	void level_specific_huddery(){
 		Fonts.AcalcFonts.black.draw(batch, "=== Level 1 ===", 10, 467, 150, 1, true);
 		Fonts.AcalcFonts.black.draw(batch, "WAVE: "+waveno+"/8", 10, 445, 150, 1, true);
-		Fonts.AcalcFonts.black.draw(batch, "DECOYS: NONE", 10, 425, 150, 1, true);
+		Fonts.AcalcFonts.black.draw(batch, "GHOSTS: NONE", 10, 425, 150, 1, true);
 	}
 	
 	// ===Check Functions===
@@ -295,14 +296,16 @@ public class ProbScreen extends GameScreen{
 	void check_for_shield_mine_collisions(){
 		for (Mine mine: mines){
 		   if(mine.rect.y<(playerShip.shield.y+playerShip.shield.height/2) && playerShip.shieldCount>0) {
+			   if (!mine.ghostly){
 			     	spawn_explosion(mine.rect.x,mine.rect.y);
 			        playerShip.shieldCount-=1;
 			        Sounds.mineHitUs.play(Options.SFXVolume*0.4f);
 			        Sounds.mineSplode.play(Options.SFXVolume);
-			        //if (option_flicker){
-			        //	shipshield_t=shipshield_flicker_t;
-			        //
-			        mines.removeValue(mine,true);
+			   }
+		        //if (option_flicker){
+		        //	shipshield_t=shipshield_flicker_t;
+		        //
+		        mines.removeValue(mine,true);
 			}  
 		 }
 	}
@@ -389,6 +392,10 @@ public class ProbScreen extends GameScreen{
 			}
 		}
 		
+		if (currentlySelectedMine!=null){
+			batch.draw(Textures.Mine.targetTrim, currentlySelectedMine.rect.x, currentlySelectedMine.rect.y);
+		}
+		
 		batch.draw(Textures.statusBar, 0, 400);
 		batch.end();
 	}
@@ -439,7 +446,8 @@ public class ProbScreen extends GameScreen{
 	void draw_miss_statements(){
 		batch.begin();
 		for (Shot shot: shots){
-			if (shot.rect.y>shot.targetMine.rect.y && shot.rect.overlaps(screenProper)){
+			//if (shot.rect.y>shot.targetMine.rect.y && shot.rect.overlaps(screenProper)){
+			if (shot.rect.y>shot.targetMine.rect.y){
 				if (shot.doomedToMiss){
 					Fonts.AcalcFonts.white.draw(batch, "MISS", shot.rect.x-10, shot.rect.y-10);
 				}
@@ -470,6 +478,71 @@ public class ProbScreen extends GameScreen{
 		   }
 	}
 	
+	// ===Hotkey Functions===
+	
+	//--Function for hotkeys--
+	   
+	   private void check_for_keypresses(){
+		   
+		   //handle targeting
+		   
+			if (Gdx.input.isKeyJustPressed(Keys.SPACE)){
+				if (currentlyActiveTurret!=null){
+					currentlyActiveTurret.targeted = true;
+					if (currentlySelectedMine!=null){
+						currentlyActiveTurret.targetMine = currentlySelectedMine;
+					}
+				}
+			}
+		   //Arrow keys to select
+		   if (Gdx.input.isKeyJustPressed(Keys.RIGHT)){
+			   cycle_mines_forward();
+		   }
+		   if (Gdx.input.isKeyJustPressed(Keys.LEFT)){
+			   cycle_mines_back();
+		   }
+	   }
+	   
+	   private void cycle_mines_forward(){
+		   if (currentlySelectedMine==null){
+			   currentlySelectedMine=mines.first();
+			   if (!screenProper.overlaps(currentlySelectedMine.rect)){
+				   cycle_mines_forward();
+			   }
+		   }
+		   else if (currentlySelectedMine==mines.peek()){
+			   currentlySelectedMine=null;
+		   }
+		   else{
+			   int q=mines.indexOf(currentlySelectedMine, true);
+			   int j=(q+1)%mines.size;
+			   currentlySelectedMine=mines.get(j);
+			   if (!screenProper.overlaps(currentlySelectedMine.rect)){
+				   cycle_mines_forward();
+			   }
+		   }
+	   }
+	   
+	   private void cycle_mines_back(){
+		   if (currentlySelectedMine==null){
+			   currentlySelectedMine=mines.peek();
+			   if (!screenProper.overlaps(currentlySelectedMine.rect)){
+				   cycle_mines_back();
+			   }
+		   }
+		   else if (currentlySelectedMine==mines.first()){
+			   currentlySelectedMine=null;
+		   }
+		   else{
+			   int q=mines.indexOf(currentlySelectedMine, true);
+			   int j=(q+mines.size-1)%mines.size;
+			   currentlySelectedMine=mines.get(j);
+			   if (!screenProper.overlaps(currentlySelectedMine.rect)){
+				   cycle_mines_back();
+			   }
+		   }
+}
+	
 	// ===Spawning Functions===
 	
 	void spawnMine(int xposn) {
@@ -482,6 +555,13 @@ public class ProbScreen extends GameScreen{
 	void spawnMine(int xposn, String typ) {
 		   
 		   Mine mine = new Mine(xposn, typ);
+		   mines.add(mine);
+		         
+	}
+	
+	void spawnMine(int xposn, String typ, boolean g, boolean o) {
+		   
+		   Mine mine = new Mine(xposn, typ, g, o);
 		   mines.add(mine);
 		         
 	}

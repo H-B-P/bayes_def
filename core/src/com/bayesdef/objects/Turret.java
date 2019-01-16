@@ -169,10 +169,15 @@ public class Turret {
 		   //return "doomed capture";
 		   
 		   if (MathUtils.random()<destroyChance){
-			   return "destroy";
+			   if (targetMine.ghostly){
+				   return "doomed destroy";
+			   }
+			   else{
+				   return "destroy";
+			   }
 		   }
 		   else{
-			   if (MathUtils.random()>captureMissingChance){
+			   if (MathUtils.random()>captureMissingChance && !targetMine.ghostly){
 				   return "capture";
 			   }
 			   else{

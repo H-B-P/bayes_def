@@ -191,13 +191,44 @@ public class GameScreen extends SpaceScreen{
 		for(Mine mine: mines) {
 			
 			if (mine.minetype.equals("fast")){
-				batch.draw(Textures.Mine.fast, mine.rect.x-20, mine.rect.y-20);
+
+				if (mine.obscured){
+					batch.draw(Textures.Mine.fastSilhouette, mine.rect.x-20, mine.rect.y-20);
+				}
+				else{
+					if (mine.ghostly){
+						batch.draw(Textures.Mine.fastGhost, mine.rect.x-20, mine.rect.y-20);
+					}
+					else{
+						batch.draw(Textures.Mine.fast, mine.rect.x-20, mine.rect.y-20);
+					}
+				}
 			}
 			else if(mine.minetype.equals("slow")){
-				batch.draw(Textures.Mine.slow, mine.rect.x-20, mine.rect.y-20);				
+				if (mine.obscured){
+					batch.draw(Textures.Mine.slowSilhouette, mine.rect.x-20, mine.rect.y-20);
+				}
+				else{
+					if (mine.ghostly){
+						batch.draw(Textures.Mine.slowGhost, mine.rect.x-20, mine.rect.y-20);
+					}
+					else{
+						batch.draw(Textures.Mine.slow, mine.rect.x-20, mine.rect.y-20);
+					}
+				}			
 			}
 			else{
-				batch.draw(Textures.Mine.regular, mine.rect.x-20, mine.rect.y-20);
+				if (mine.obscured){
+					batch.draw(Textures.Mine.regularSilhouette, mine.rect.x-20, mine.rect.y-20);
+				}
+				else{
+					if (mine.ghostly){
+						batch.draw(Textures.Mine.regularGhost, mine.rect.x-20, mine.rect.y-20);
+					}
+					else{
+						batch.draw(Textures.Mine.regular, mine.rect.x-20, mine.rect.y-20);
+					}
+				}
 			}
 		    if (mine.beingDetained){
 		    	batch.draw(Textures.detainingCircle, mine.rect.x-20, mine.rect.y-20);

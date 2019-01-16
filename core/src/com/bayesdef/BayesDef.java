@@ -16,6 +16,7 @@ import com.bayesdef.resources.Sounds;
 import com.bayesdef.resources.Textures;
 import com.bayesdef.screens.BayesScreen;
 import com.bayesdef.screens.ProbScreen;
+import com.bayesdef.screens.Level_2;
 
 public class BayesDef extends Game {
 	

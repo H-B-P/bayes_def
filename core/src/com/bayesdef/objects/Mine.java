@@ -14,11 +14,11 @@ public class Mine {
    
    public String minetype="regular";
    
-   public boolean captureProof=false; //If a captureshot hits it, will it be captured?
-   public boolean destroyProof=false; //If a destroyshot hits it, will it be destroyed?
-   
    public boolean actuallyExists =true;
    public boolean beingDetained=false;
+   
+   public boolean ghostly=false;
+   public boolean obscured=false;
    
    public float horzVel=0;
    public float vertVel=0;
@@ -60,6 +60,12 @@ public class Mine {
 	   if (minetype.equals("slow")){
 		   vertVel = -77;
 	   }
+   }
+   
+   public Mine(int xposn, String typ, boolean g, boolean o){
+	   this(xposn, typ);
+	   ghostly=g;
+	   obscured=o;
    }
    
    public void update_posn(float delta){

@@ -168,6 +168,13 @@ public class Textures {
 		public static Texture regular;
 		public static Texture fast;
 		public static Texture slow;
+		public static Texture regularGhost;
+		public static Texture fastGhost;
+		public static Texture slowGhost;
+		public static Texture regularSilhouette;
+		public static Texture fastSilhouette;
+		public static Texture slowSilhouette;
+		public static Texture targetTrim;
 
 	}
 	
@@ -325,7 +332,14 @@ public class Textures {
 		Mine.regular = new Texture("textures/mines/mine.png");
 		Mine.fast = new Texture("textures/mines/fast_mine.png");
 		Mine.slow = new Texture("textures/mines/slow_mine.png");
-
+		Mine.regularGhost = new Texture("textures/mines/mine_ghost.png");
+		Mine.fastGhost = new Texture("textures/mines/fast_mine_ghost.png");
+		Mine.slowGhost = new Texture("textures/mines/slow_mine_ghost.png");
+		Mine.regularSilhouette = new Texture("textures/mines/mine_silhouette.png");
+		Mine.fastSilhouette = new Texture("textures/mines/fast_mine_silhouette.png");
+		Mine.slowSilhouette = new Texture("textures/mines/slow_mine_silhouette.png");
+		Mine.targetTrim = new Texture("textures/mines/mine_trim.png");
+		
 		Obscurities.one = new Texture("textures/obscurities/obscurity_1.png");
 		Obscurities.two = new Texture("textures/obscurities/obscurity_2.png");
 		Obscurities.three = new Texture("textures/obscurities/obscurity_3.png");
