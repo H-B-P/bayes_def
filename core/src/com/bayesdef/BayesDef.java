@@ -15,6 +15,7 @@ import com.bayesdef.resources.Options;
 import com.bayesdef.resources.Sounds;
 import com.bayesdef.resources.Textures;
 import com.bayesdef.screens.BayesScreen;
+import com.bayesdef.screens.Level_1;
 import com.bayesdef.screens.ProbScreen;
 import com.bayesdef.screens.Level_2;
 
@@ -31,7 +32,7 @@ public class BayesDef extends Game {
 		Options.load();
 		
 		
-		this.setScreen(new ProbScreen(this, 0)); //Hand off to title screen.
+		this.setScreen(new Level_1(this, 0)); //Hand off to title screen.
 		
 	}
 

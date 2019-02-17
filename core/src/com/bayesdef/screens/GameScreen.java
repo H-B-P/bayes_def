@@ -23,6 +23,7 @@ import com.bayesdef.objects.Vane;
 import com.bayesdef.objects.Symbol;
 import com.bayesdef.objects.EnemyShip;
 import com.bayesdef.objects.PlayerShip;
+import com.bayesdef.objects.StatusBar;
 import com.bayesdef.resources.Textures;
 
 public class GameScreen extends SpaceScreen{
@@ -36,12 +37,13 @@ public class GameScreen extends SpaceScreen{
 	Array<EnemyShip> enemyships;
 	
 	PlayerShip playerShip;
-	
+	StatusBar statusBar;
+
 	Rectangle menuButtonRect = new Rectangle(230,420,100,40);
     Rectangle fireButtonRect = new Rectangle(10,420,100,40);
     
-    boolean bayesian = false;
-    
+    public boolean bayesian = false;
+
     int minecount=0;
     
     int waveno=0;
@@ -59,6 +61,7 @@ public class GameScreen extends SpaceScreen{
 		enemyships = new Array<EnemyShip>();
 		
 		playerShip = new PlayerShip();
+		statusBar = new StatusBar();
 
 	}
 	
@@ -101,7 +104,7 @@ public class GameScreen extends SpaceScreen{
 		}
 		
 		playerShip.update_posn(delta*TIMESPEED);
-		
+		statusBar.update_posn(delta*TIMESPEED);
 		time_out_explosions();
 		
 		
@@ -162,7 +165,7 @@ public class GameScreen extends SpaceScreen{
 		draw_shots();
 		draw_overlays();
 		
-		batch.draw(Textures.statusBar, 0, 400);
+		batch.draw(Textures.statusBar, statusBar.rect.x, statusBar.rect.y);
 		batch.draw(Textures.letterboxPoncho, -640, -960);
 	}
 	

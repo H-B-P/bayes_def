@@ -157,10 +157,10 @@ public class Turret {
 		   }
 		   
 		   if (id.equals("circleplus")){
-			   captureMissingChance=0.3f;
+			   captureMissingChance=0.2f;
 		   }
 		   if (id.equals("circleplusplus")){
-			   captureMissingChance=0.1f;
+			   captureMissingChance=0f;
 		   }
 	   }
 	   

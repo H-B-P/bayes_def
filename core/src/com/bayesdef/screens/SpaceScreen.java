@@ -55,7 +55,7 @@ public class SpaceScreen extends MetaScreen {
 		batch.begin();
 		batch.setProjectionMatrix(camera.combined);
 		draw_pretty_background();
-		batch.draw(Textures.statusBar, 0, 400);
+		//batch.draw(Textures.statusBar, 0, 400);
 		batch.draw(Textures.letterboxPoncho, -640, -960);
 		batch.end();
 		

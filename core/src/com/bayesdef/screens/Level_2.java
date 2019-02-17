@@ -37,8 +37,8 @@ public class Level_2 extends ProbScreen{
 	
 	void level_specific_turret_setup(){
 		
-		Turret turretOne = new Turret("circleplusplus");
-		Turret turretTwo = new Turret("circle");
+		Turret turretOne = new Turret("circle");
+		Turret turretTwo = new Turret("circleplusplus");
 		Turret turretThree = new Turret("circleplus");
 		Turret turretFour = new Turret("circleplusplus");
 		
@@ -170,15 +170,17 @@ public class Level_2 extends ProbScreen{
 			spawnMine(0, "regular", MathUtils.randomBoolean(), true);
 			spawnMine(3, "fast", MathUtils.randomBoolean(), true);
 		}
-		
-		
-		
+
+
+		if (seconds==75){
+			statusBar.vertVel=40;
+		}
 		if (seconds==77){
 			playerShip.restrained=false;
 			playerShip.vertVel=40;
 			playerShip.vertAcc=40;
 		}
-		if (seconds==82){
+		if (seconds==83){
 			//goto next level
 		}
 	}
@@ -186,9 +188,9 @@ public class Level_2 extends ProbScreen{
 	@Override
 	
 	void level_specific_huddery(){
-		Fonts.AcalcFonts.black.draw(batch, "=== Level 2 ===", 10, 467, 150, 1, true);
-		Fonts.AcalcFonts.black.draw(batch, "WAVE: "+waveno+"/12", 10, 445, 150, 1, true);
-		Fonts.AcalcFonts.black.draw(batch, "GHOSTS: SOME", 10, 425, 150, 1, true);
+		Fonts.AcalcFonts.black.draw(batch, "=== Level 2 ===", statusBar.rect.x+10, statusBar.rect.y+67, 150, 1, true);
+		Fonts.AcalcFonts.black.draw(batch, "WAVE: "+waveno+"/12", statusBar.rect.x+10, statusBar.rect.y+45, 150, 1, true);
+		Fonts.AcalcFonts.black.draw(batch, "GHOSTS: SOME", statusBar.rect.x+10, statusBar.rect.y+25, 150, 1, true);
 	}
 	
 	

@@ -1,16 +1,6 @@
 package com.bayesdef.screens;
 
-import java.util.Iterator;
-
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.Input.Keys;
 import com.bayesdef.BayesDef;
 import com.bayesdef.objects.Mine;
@@ -26,15 +16,15 @@ public class ProbScreen extends GameScreen{
 	
     int seconds = 0;
     
-    boolean bayesian = false;
-    
     String currentStatus = "waiting";
     
     Turret currentlyActiveTurret = null;
     Mine currentlySelectedMine = null;
     
     float volleyEndingTime=0;
-    float hangStart=0f;
+    float hangFiringStart =0f;
+
+    boolean suppressFreezes = false;
     
 	public ProbScreen(final BayesDef bd, int mc) {
 		
@@ -84,7 +74,7 @@ public class ProbScreen extends GameScreen{
 			TIMESPEED=0;
 			draw_targeting();
 			autocalc();
-			if (playerTime>hangStart+0.7f){
+			if (playerTime> hangFiringStart +0.7f){
 				currentStatus="firing";
 			}
 		}
@@ -98,7 +88,7 @@ public class ProbScreen extends GameScreen{
 		if ((seconds+1)<totalTime){
 			seconds+=1;
 			System.out.println(seconds);
-			if (any_targetable_mines()){
+			if (any_targetable_mines() && !suppressFreezes){
 				currentStatus="targeting";
 			}
 			level_specific_events();
@@ -152,7 +142,7 @@ public class ProbScreen extends GameScreen{
 		if (currentlyActiveTurret==null && (!Options.waitForFiringButton || Gdx.input.isKeyJustPressed(Keys.SPACE))){
 			currentlySelectedMine=null;
 			set_up_firing_times();
-			hangStart=playerTime;
+			hangFiringStart =playerTime;
 			currentStatus="hanging";
 		}
 		
@@ -286,9 +276,9 @@ public class ProbScreen extends GameScreen{
 	}
 	
 	void level_specific_huddery(){
-		Fonts.AcalcFonts.black.draw(batch, "=== Level 1 ===", 10, 467, 150, 1, true);
-		Fonts.AcalcFonts.black.draw(batch, "WAVE: "+waveno+"/8", 10, 445, 150, 1, true);
-		Fonts.AcalcFonts.black.draw(batch, "GHOSTS: NONE", 10, 425, 150, 1, true);
+		Fonts.AcalcFonts.black.draw(batch, "=== Level 1 ===", statusBar.rect.x+10, statusBar.rect.y+67, 150, 1, true);
+		Fonts.AcalcFonts.black.draw(batch, "WAVE: "+waveno+"/8", statusBar.rect.x+10, statusBar.rect.y+45, 150, 1, true);
+		Fonts.AcalcFonts.black.draw(batch, "GHOSTS: NONE", statusBar.rect.x+10, statusBar.rect.y+25, 150, 1, true);
 	}
 	
 	// ===Check Functions===
@@ -396,7 +386,7 @@ public class ProbScreen extends GameScreen{
 			batch.draw(Textures.Mine.targetTrim, currentlySelectedMine.rect.x, currentlySelectedMine.rect.y);
 		}
 		
-		batch.draw(Textures.statusBar, 0, 400);
+		batch.draw(Textures.statusBar, statusBar.rect.x, statusBar.rect.y);
 		batch.end();
 	}
 	
@@ -458,14 +448,14 @@ public class ProbScreen extends GameScreen{
 	
 	void draw_HUD(){
 		batch.begin();
-		batch.draw(Textures.statusBar, 0, 400);
+		batch.draw(Textures.statusBar, statusBar.rect.x, statusBar.rect.y);
 		
 		level_specific_huddery();
 		
-		batch.draw(Textures.Icons.captureCountMineIcon, 165, 427);
-		Fonts.AcalcFonts.black.draw(batch, ""+minecount, 165, 423, 42, 1, true);
+		batch.draw(Textures.Icons.captureCountMineIcon, statusBar.rect.x+165, statusBar.rect.y+27);
+		Fonts.AcalcFonts.black.draw(batch, ""+minecount, statusBar.rect.x+165, statusBar.rect.y+23, 42, 1, true);
 		
-		batch.draw(Textures.Buttons.exit, 220, 420);
+		batch.draw(Textures.Buttons.exit, statusBar.rect.x+220, statusBar.rect.y+20);
 		
 		batch.end();
 	}
@@ -557,6 +547,13 @@ public class ProbScreen extends GameScreen{
 		   Mine mine = new Mine(xposn, typ);
 		   mines.add(mine);
 		         
+	}
+
+	void spawnMine(int xposn, String typ, float uwn) {
+
+		Mine mine = new Mine(xposn, typ, uwn);
+		mines.add(mine);
+
 	}
 	
 	void spawnMine(int xposn, String typ, boolean g, boolean o) {

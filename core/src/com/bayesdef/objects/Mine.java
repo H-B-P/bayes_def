@@ -61,6 +61,11 @@ public class Mine {
 		   vertVel = -77;
 	   }
    }
+
+   public Mine(int xposn, String typ,float upwardsness){
+   	this(xposn,typ);
+   	rect.y=upwardsness;
+   }
    
    public Mine(int xposn, String typ, boolean g, boolean o){
 	   this(xposn, typ);

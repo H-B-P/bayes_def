@@ -35,8 +35,8 @@ public class PlayerShip {
 	   rect.x = 0;
 	   //rect.y = 120-rect.height;
 	   rect.y=-40-rect.height;
-	   
-	   
+
+
 	   shield = new Rectangle();
 	   shield.width=280;
 	   shield.height=5;
