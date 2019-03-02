@@ -18,13 +18,16 @@ public class Shot {
 	   public boolean doomedToMiss = false;
 	   
 	   public Shot(Rectangle originR, Mine targetmine, float shotspeed, String typ){
-		   
-		   if (typ.equals("doomed capture")){
+
+		   type = typ;
+
+		   if (typ.equals("doomed capture")) {
 			   type = "capture";
-			   doomedToMiss=true;
+			   doomedToMiss = true;
 		   }
-		   else{
-			   type = typ;
+		   if (typ.equals("doomed destroy")){
+			   type = "destroy";
+			   doomedToMiss=true;
 		   }
 		   
 		   targetMine=targetmine;
@@ -71,13 +74,15 @@ public class Shot {
 		   
 	   }
 	   public Shot(Rectangle origin_r, float dest_x, float dest_y, float shotspeed, String typ){
-		   
-		   if (typ.equals("doomed capture")){
+
+	   	   type = typ;
+		   if (typ.equals("doomed capture")) {
 			   type = "capture";
-			   doomedToMiss=true;
+			   doomedToMiss = true;
 		   }
-		   else{
-			   type = typ;
+		   if (typ.equals("doomed destroy")) {
+			   type = "destroy";
+			   doomedToMiss = true;
 		   }
 		   
 		   if (type.equals("capture")){

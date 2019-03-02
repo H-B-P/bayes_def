@@ -7,12 +7,17 @@ public class Options {
 	public static boolean waitForFiringButton;
 	
 	public static boolean permitFlickering;
-	
+
+	public static String autocalcSettings;
+
 	public static void load () {
 		SFXVolume=1f;
 		MusicVolume=1f;
 		
 		waitForFiringButton=false;
 		permitFlickering=true;
+
+		autocalcSettings="preal";
+
 	}
 }

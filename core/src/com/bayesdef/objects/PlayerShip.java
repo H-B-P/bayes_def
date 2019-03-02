@@ -53,7 +53,8 @@ public class PlayerShip {
 	   
 	   if (restrained){
 		   rect.x = rect.x+horzVel*delta;
-		   rect.y = Math.min(Math.max(rect.y+vertVel*delta, -60-rect.height),120-rect.height);
+		   rect.y = Math.min(Math.max(rect.y+vertVel*delta, -60-rect.height),70-rect.height);
+		   //rect.y = Math.min(Math.max(rect.y+vertVel*delta, -60-rect.height),120-rect.height);
 	   }
 	   else{
 		   rect.x = rect.x + horzVel*delta;

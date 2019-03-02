@@ -1,6 +1,7 @@
 package com.bayesdef.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.Input.Keys;
 import com.bayesdef.BayesDef;
 import com.bayesdef.objects.Mine;
@@ -17,12 +18,18 @@ public class ProbScreen extends GameScreen{
     int seconds = 0;
     
     String currentStatus = "waiting";
-    
+
+    Rectangle rightArrowR;
+    Rectangle leftArrowR;
+
     Turret currentlyActiveTurret = null;
     Mine currentlySelectedMine = null;
     
     float volleyEndingTime=0;
     float hangFiringStart =0f;
+
+    boolean failing=false;
+    float failureStartTime=0;
 
     boolean suppressFreezes = false;
     
@@ -30,7 +37,7 @@ public class ProbScreen extends GameScreen{
 		
 		super(bd);
 		
-		minecount=mc;
+		originalMinecount=minecount=mc;
 		
 		playerShip.shieldCount=3;
 		
@@ -38,6 +45,9 @@ public class ProbScreen extends GameScreen{
 		
 		BGM.campaignMusic.setLooping(true);
 		BGM.campaignMusic.play();
+
+		leftArrowR = new Rectangle(180,0,31,31);
+		rightArrowR = new Rectangle(180+120-31,0,31,31);
 	}
 	
 	@Override
@@ -56,8 +66,21 @@ public class ProbScreen extends GameScreen{
 		for (Turret turret: turrets){
 			turret.rect.y = playerShip.rect.y + playerShip.rect.height - turret.rect.height - 25;
 		}
+
+		handle_failure();
 	}
-	
+
+	// ===Failure===
+	void handle_failure(){
+		if (failing==true){
+			if ((totalTime-0.3)>failureStartTime && playerShip.actuallyExists){
+				destroy_the_ship();
+			}
+			if (totalTime-3>failureStartTime){
+				level_specific_failure();
+			}
+		}
+	}
 	// ===Implications of Status===
 	
 	void do_status_relevant_things(){
@@ -98,7 +121,7 @@ public class ProbScreen extends GameScreen{
 	void do_targeting_things(){
 		
 		//Draw targeting
-		
+
 		draw_targeting();
 		autocalc();
 		//Change to tapped turrets
@@ -155,14 +178,17 @@ public class ProbScreen extends GameScreen{
 		
 		for (Turret turret: turrets){
 			if (turret.targetMine!=null){
-				if (turret.targeted && turret.firingTime<totalTime){
-					if (!turret.targetMine.beingDetained && turret.targetMine.actuallyExists){
-						Sounds.fire.play(Options.SFXVolume*0.3f);
+				if (turret.targeted && (turret.firingTime+turret.shotsMade*0.01f)<totalTime){
+					if (!turret.targetMine.beingDetained){ //&& turret.targetMine.actuallyExists){
+						if (turret.shotsMade==0){Sounds.fire.play(Options.SFXVolume*0.3f);}
+						turret.shotsMade+=1;
 						Shot shot = new Shot(turret.rect, turret.targetMine, 5000, turret.determine_output());
 						shots.add(shot);
 						turret.currentT=turret.firingT;
-						turret.targeted=false;
-						turret.targetMine=null;
+						if(turret.shotsMade==turret.level) {
+							turret.targeted = false;
+							turret.targetMine = null;
+						}
 					}
 					else{
 						turret.targeted=false;
@@ -178,6 +204,7 @@ public class ProbScreen extends GameScreen{
 		if (totalTime>volleyEndingTime){
 			
 			for (Turret turret: turrets){
+				turret.shotsMade=0;
 				turret.targeted=false;
 				turret.targetMine=null;
 			}
@@ -271,22 +298,57 @@ public class ProbScreen extends GameScreen{
 			playerShip.vertAcc=80;
 		}
 		if (seconds==52){
-			game.setScreen(new Level_2(game, minecount));
+			game.setScreen(new Level_1(game, minecount));
 		}
 	}
-	
+
+	void level_specific_autocalc_display(Mine mine, float survive, float destroy, float capture){
+		//Fonts.AcalcFonts.blue.draw(batch, present_float(capture*100f)+"%", mine.rect.x-12, mine.rect.y-20, 80, 1, true);
+		//batch.draw(Textures.Icons.survive, mine.rect.x-12, mine.rect.y-31);
+		//batch.draw(Textures.Icons.capture, mine.rect.x-12, mine.rect.y-31);
+
+		//Fonts.AcalcFonts.gray.draw(batch, present_float(survive*100f)+"%", mine.rect.x-12, mine.rect.y-35, 80, 1, true);
+		//batch.draw(Textures.Icons.survive, mine.rect.x-12, mine.rect.y-46);
+
+		//Fonts.AcalcFonts.red.draw(batch, present_float(destroy*100f)+"%", mine.rect.x-12, mine.rect.y-50, 80, 1, true);
+		//batch.draw(Textures.Icons.destroy, mine.rect.x-12, mine.rect.y-61);
+
+
+
+		//Fonts.AcalcFonts.red.draw(batch, present_float(destroy*100f)+"%", mine.rect.x-12, mine.rect.y-35, 80, 1, true);
+		//batch.draw(Textures.Icons.destroy, mine.rect.x-14, mine.rect.y-46);
+
+		if (Options.autocalcSettings.equals("preal")){
+			//Fonts.AcalcFonts.gray.draw(batch, present_float(survive*100f)+"%", mine.rect.x-12, mine.rect.y-21, 80, 1, true);
+			//batch.draw(Textures.Icons.survive, mine.rect.x-14, mine.rect.y-32);
+			//Fonts.AcalcFonts.gray.draw(batch, present_float((destroy+capture)*100f)+"%", mine.rect.x-12, mine.rect.y-36, 80, 1, true);
+			//batch.draw(Textures.Icons.gone, mine.rect.x-14, mine.rect.y-47);
+			Fonts.AcalcFonts.gray.draw(batch, present_float((destroy+capture)*100f)+"%", mine.rect.x-12, mine.rect.y-21, 80, 1, true);
+			batch.draw(Textures.Icons.gone, mine.rect.x-14, mine.rect.y-32);
+		}
+
+		if (Options.autocalcSettings.equals("pvals")) {
+			if (survive<1) {
+				Fonts.AcalcFonts.green.draw(batch, "p=" + present_float_for_pvals(survive), mine.rect.x - 20, mine.rect.y - 21, 80, 1, true);
+			}
+		}
+	}
+
 	void level_specific_huddery(){
 		Fonts.AcalcFonts.black.draw(batch, "=== Level 1 ===", statusBar.rect.x+10, statusBar.rect.y+67, 150, 1, true);
 		Fonts.AcalcFonts.black.draw(batch, "WAVE: "+waveno+"/8", statusBar.rect.x+10, statusBar.rect.y+45, 150, 1, true);
 		Fonts.AcalcFonts.black.draw(batch, "GHOSTS: NONE", statusBar.rect.x+10, statusBar.rect.y+25, 150, 1, true);
 	}
-	
+
+	void level_specific_failure(){
+		game.setScreen(new Level_0(game, originalMinecount));
+	}
 	// ===Check Functions===
 	
 	void check_for_shield_mine_collisions(){
 		for (Mine mine: mines){
 		   if(mine.rect.y<(playerShip.shield.y+playerShip.shield.height/2) && playerShip.shieldCount>0) {
-			   if (!mine.ghostly){
+			   if (!mine.ghostly && mine.actuallyExists && !mine.beingDetained){
 			     	spawn_explosion(mine.rect.x,mine.rect.y);
 			        playerShip.shieldCount-=1;
 			        Sounds.mineHitUs.play(Options.SFXVolume*0.4f);
@@ -304,19 +366,28 @@ public class ProbScreen extends GameScreen{
 		
 		for (Mine mine: mines){
 		   if(mine.rect.y<(playerShip.rect.y+playerShip.rect.height) && playerShip.shieldCount<1) {
-				//minecount-=1;
-		     	spawn_explosion(mine.rect.x,mine.rect.y);
-		        Sounds.mineHitUs.play(Options.SFXVolume*0.8f);
-		        Sounds.mineSplode.play(Options.SFXVolume);
-		        mines.removeValue(mine,true);
-		        initiate_failure();
-			}  
+			   if (playerShip.actuallyExists && mine.actuallyExists && !mine.beingDetained) {
+				   if (!mine.ghostly) {
+
+					   spawn_explosion(mine.rect.x, mine.rect.y);
+
+					   suppressFreezes = true;
+
+					   failing=true;
+					   failureStartTime = totalTime;
+
+					   Sounds.mineHitUs.play(Options.SFXVolume * 0.8f);
+					   Sounds.mineSplode.play(Options.SFXVolume);
+				   }
+				   mines.removeValue(mine, true);
+			   }
+		   }
 		 }
 	}
 	
 	void check_for_shot_mine_collisions(){
 		for (Shot shot: shots){
-			if ((shot.rect.y-2)>shot.targetMine.rect.y && !shot.doomedToMiss){
+			if ((((shot.rect.y-2)>shot.targetMine.rect.y && !shot.targetMine.beingDetained)|| shot.rect.overlaps(shot.targetMine.rect)) && !shot.doomedToMiss && shot.targetMine.actuallyExists){
 				if (shot.type.equals("capture")){
 					Sounds.capture.play(Options.SFXVolume*0.8f);
 					shot.targetMine.beingDetained=true;
@@ -333,7 +404,7 @@ public class ProbScreen extends GameScreen{
 			}
 		}
 	}
-	
+
 	// ===Turret functions===
 	
 	void cycle_through_turrets(){
@@ -367,10 +438,12 @@ public class ProbScreen extends GameScreen{
 	
 	void draw_targeting(){
 		batch.begin();
-		if (currentlyActiveTurret!=null){
+		if (currentlyActiveTurret!=null) {
 			batch.draw(currentlyActiveTurret.selectedT, currentlyActiveTurret.rect.x, currentlyActiveTurret.rect.y);
-			batch.draw(currentlyActiveTurret.targetT, tp_x-30, tp_y-30);
-	    	draw_orange_dotted_line(currentlyActiveTurret.rect.x+currentlyActiveTurret.rect.width/2, currentlyActiveTurret.rect.y+currentlyActiveTurret.rect.height*3/4,tp_x,tp_y,10);
+			if (!statusBar.rect.contains(tp_x, tp_y)) {
+				batch.draw(currentlyActiveTurret.targetT, tp_x - 30, tp_y - 30);
+				draw_orange_dotted_line(currentlyActiveTurret.rect.x + currentlyActiveTurret.rect.width / 2, currentlyActiveTurret.rect.y + currentlyActiveTurret.rect.height * 3 / 4, tp_x, tp_y, 10);
+			}
 		}
 		
 		for (Turret turret: turrets){
@@ -403,30 +476,24 @@ public class ProbScreen extends GameScreen{
 			   float captureExtra=0f;
 			   
 			   for (Turret turret: turrets){
-				   if (turret.targeted){
-					   if (turret.targetMine!=null){
-						   if (turret.targetMine.equals(mine)){
-							   destroyExtra = survive*turret.destroyChance;
-							   destroy = destroy + destroyExtra;
-							   
-							   captureExtra = survive*(1f-turret.destroyChance)*(1f-turret.captureMissingChance);
-							   capture = capture + captureExtra;
-							   
-							   survive = survive - destroyExtra - captureExtra;
-						   }
-					   }							   
-				   }
+			   	for (int i=0; i<turret.level; i++) {
+					if (turret.targeted) {
+						if (turret.targetMine != null) {
+							if (turret.targetMine.equals(mine)) {
+								destroyExtra = survive * turret.destroyChance;
+								destroy = destroy + destroyExtra;
+
+								captureExtra = survive * (1f - turret.destroyChance) * (1f - turret.captureMissingChance);
+								capture = capture + captureExtra;
+
+								survive = survive - destroyExtra - captureExtra;
+							}
+						}
+					}
+				}
 			   }
 			   
-			   Fonts.AcalcFonts.blue.draw(batch, present_float(capture*100f)+"%", mine.rect.x-12, mine.rect.y-20, 80, 1, true);
-			   //batch.draw(Textures.Icons.survive, mine.rect.x-12, mine.rect.y-31);
-			   batch.draw(Textures.Icons.capture, mine.rect.x-12, mine.rect.y-31);
-			      
-			   Fonts.AcalcFonts.gray.draw(batch, present_float(survive*100f)+"%", mine.rect.x-12, mine.rect.y-35, 80, 1, true);
-			   batch.draw(Textures.Icons.survive, mine.rect.x-12, mine.rect.y-46);
-			   
-			   //Fonts.AcalcFonts.red.draw(batch, present_float(destroy*100f)+"%", mine.rect.x-12, mine.rect.y-50, 80, 1, true);
-			   //batch.draw(Textures.Icons.destroy, mine.rect.x-12, mine.rect.y-61);
+			   level_specific_autocalc_display(mine, survive, destroy, capture);
 		   }
 		}
 		
@@ -439,7 +506,12 @@ public class ProbScreen extends GameScreen{
 			//if (shot.rect.y>shot.targetMine.rect.y && shot.rect.overlaps(screenProper)){
 			if (shot.rect.y>shot.targetMine.rect.y){
 				if (shot.doomedToMiss){
-					Fonts.AcalcFonts.white.draw(batch, "MISS", shot.rect.x-10, shot.rect.y-10);
+					if (shot.type.equals("destroy")){
+						Fonts.AcalcFonts.white.draw(batch, "MISS", shot.rect.x - 10, shot.rect.y - 25);
+					}
+					else {
+						Fonts.AcalcFonts.white.draw(batch, "MISS", shot.rect.x - 10, shot.rect.y - 10);
+					}
 				}
 			}
 		}
@@ -452,11 +524,34 @@ public class ProbScreen extends GameScreen{
 		
 		level_specific_huddery();
 		
-		batch.draw(Textures.Icons.captureCountMineIcon, statusBar.rect.x+165, statusBar.rect.y+27);
-		Fonts.AcalcFonts.black.draw(batch, ""+minecount, statusBar.rect.x+165, statusBar.rect.y+23, 42, 1, true);
+		//batch.draw(Textures.Icons.captureCountMineIcon, statusBar.rect.x+165, statusBar.rect.y+27);
+		//Fonts.AcalcFonts.black.draw(batch, ""+minecount, statusBar.rect.x+165, statusBar.rect.y+23, 42, 1, true);
 		
-		batch.draw(Textures.Buttons.exit, statusBar.rect.x+220, statusBar.rect.y+20);
-		
+		//batch.draw(Textures.Buttons.exit, statusBar.rect.x+220, statusBar.rect.y+20);
+
+		batch.draw(Textures.OptionBoxes.acalc.preal,statusBar.rect.x+180,statusBar.rect.y+10);
+		if (Options.autocalcSettings.equals("pvals")){
+			batch.draw(Textures.OptionBoxes.acalc.pvals,statusBar.rect.x+180,statusBar.rect.y+10);
+		}
+		if (Options.autocalcSettings.equals("off")){
+			batch.draw(Textures.OptionBoxes.acalc.off,statusBar.rect.x+180,statusBar.rect.y+10);
+		}
+
+		leftArrowR.y = statusBar.rect.y+10;
+		rightArrowR.y = statusBar.rect.y+10;
+
+		if (leftArrowR.contains(tp_x, tp_y)){
+			batch.draw(Textures.OptionBoxes.leftSelect, leftArrowR.x, leftArrowR.y);
+			if (Gdx.input.justTouched()){
+				cycle_calcs_back();
+			}
+		}
+		if (rightArrowR.contains(tp_x, tp_y)) {
+			batch.draw(Textures.OptionBoxes.rightSelect, rightArrowR.x, rightArrowR.y);
+			if (Gdx.input.justTouched()){
+				cycle_calcs_forward();
+			}
+		}
 		batch.end();
 	}
 	
@@ -467,7 +562,30 @@ public class ProbScreen extends GameScreen{
 			   batch.draw(Textures.Targets.Turret.lineDot, centre_x-1, centre_y-1);
 		   }
 	}
-	
+
+	private void cycle_calcs_forward(){
+		if (Options.autocalcSettings.equals("preal")){
+			Options.autocalcSettings="pvals";
+		}
+		else if(Options.autocalcSettings.equals("pvals")){
+			Options.autocalcSettings="off";
+		}
+		else if (Options.autocalcSettings.equals("off")){
+			Options.autocalcSettings="preal";
+		}
+	}
+	private void cycle_calcs_back(){
+		if (Options.autocalcSettings.equals("pvals")){
+			Options.autocalcSettings="preal";
+		}
+		else if(Options.autocalcSettings.equals("off")){
+			Options.autocalcSettings="pvals";
+		}
+		else if (Options.autocalcSettings.equals("preal")){
+			Options.autocalcSettings="off";
+		}
+	}
+
 	// ===Hotkey Functions===
 	
 	//--Function for hotkeys--
@@ -573,5 +691,10 @@ public class ProbScreen extends GameScreen{
 		   }
 		   return false;
 	}
-	
+
+	void destroy_the_ship(){
+		playerShip.actuallyExists = false;
+		Sounds.mineHitUs.play(Options.SFXVolume * 0.8f);
+		spawn_massive_explosion(playerShip.rect.x, playerShip.rect.y);
+	}
 }

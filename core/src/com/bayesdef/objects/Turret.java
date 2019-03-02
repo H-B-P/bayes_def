@@ -17,6 +17,9 @@ public class Turret {
 	   public Texture currentT;
 	   
 	   public Texture targetT;
+
+	   public Texture leveldotsT;
+
 	   public Mine targetMine;
 	   
 	   public String ident;
@@ -37,7 +40,10 @@ public class Turret {
 	   
 	   public float firingDelta = 0;
 	   public float firingTime = 0;
-	   
+
+	   public int level=1;
+	   public int shotsMade=0;
+
 	   public Turret(){
 		   ident="triangle";
 		   
@@ -48,7 +54,7 @@ public class Turret {
 		   does_it_work=true;
 		   targeted=false;
 		   
-		   assign_textures(ident);
+		   assign_textures(ident,1);
 		   assign_probabilities(ident);
 	   }
 	   
@@ -56,11 +62,18 @@ public class Turret {
 		   this();
 		   ident=id;
 		   
-		   assign_textures(ident);
+		   assign_textures(ident,1);
 		   assign_probabilities(ident);
 	   }
+
+	   public Turret(String id, int lvl){
+	   	this(id);
+	   	level=lvl;
+	   	assign_textures(ident, lvl);
+
+	   }
 	   
-	   public void assign_textures(String id){
+	   public void assign_textures(String id, int level){
 		   if (id.equals("triangle")){
 			   normalT = Textures.Turrets.Triangle.normal;
 			   firingT = Textures.Turrets.Triangle.firing;
@@ -133,6 +146,17 @@ public class Turret {
 			   
 			   targetT = Textures.Targets.Turret.circle;
 		   }
+
+		   if (level==2){
+			   leveldotsT=Textures.LevelDots.two;
+		   }
+		   if (level==3){
+			   leveldotsT=Textures.LevelDots.three;
+		   }
+		   if (level==4){
+			   leveldotsT=Textures.LevelDots.four;
+		   }
+
 		   currentT = normalT;
 	   }
 	   
@@ -165,8 +189,6 @@ public class Turret {
 	   }
 	   
 	   public String determine_output(){
-		   
-		   //return "doomed capture";
 		   
 		   if (MathUtils.random()<destroyChance){
 			   if (targetMine.ghostly){

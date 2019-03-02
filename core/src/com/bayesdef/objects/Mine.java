@@ -45,7 +45,8 @@ public class Mine {
 	   rect.x = (xposn * 40f+160f)-20f;
 	   rect.y=420;
 	   
-	   vertVel = -103;
+	   //vertVel = -103;
+	   vertVel=-120;
    }
    
    public Mine(int xposn, String typ){
@@ -55,10 +56,12 @@ public class Mine {
 	   minetype = typ;
 	   
 	   if (minetype.equals("fast")){
-		   vertVel = -155;
+		   //vertVel = -155;
+		   vertVel= -180;
 	   }
 	   if (minetype.equals("slow")){
-		   vertVel = -77;
+		   //vertVel = -77;
+		   vertVel = -90;
 	   }
    }
 

@@ -150,7 +150,8 @@ public class Textures {
 		public static Texture capture;
 		public static Texture destroy;
 		public static Texture survive;
-		
+		public static Texture gone;
+
 		public static Texture captureCountMineIcon;
 		
 		public static Texture circle;
@@ -163,6 +164,7 @@ public class Textures {
 	
 	public static Texture explosion;
 	public static Texture bigExplosion;
+	public static Texture massiveExplosion;
 	
 	public static class Mine{
 		public static Texture regular;
@@ -193,7 +195,24 @@ public class Textures {
 		public static Texture orangeTrim;
 		public static Texture purpleTrim;
 	}
-	
+
+	public static class OptionBoxes{
+		public static class acalc{
+			public static Texture preal;
+			public static Texture pvals;
+			public static Texture off;
+		}
+		public static Texture leftSelect;
+		public static Texture rightSelect;
+	}
+
+	public static class LevelDots{
+		public static Texture one;
+		public static Texture two;
+		public static Texture three;
+		public static Texture four;
+	}
+
 	public static Texture vane;
 	public static Texture vaneTrim;
 	
@@ -296,6 +315,7 @@ public class Textures {
 		Icons.capture = new Texture("textures/icons/iconic_capture.png");
 		Icons.destroy = new Texture("textures/icons/iconic_boom.png");
 		Icons.survive = new Texture("textures/icons/iconic_mine.png");
+		Icons.gone = new Texture("textures/icons/iconic_mine_gone.png");
 		
 		Icons.circle = new Texture("textures/icons/iconic_circle.png");
 		Icons.triangle = new Texture("textures/icons/iconic_triangle.png");
@@ -325,6 +345,7 @@ public class Textures {
 		
 		explosion = new Texture("textures/explosions/explosion.png");
 		bigExplosion = new Texture("textures/explosions/big_explosion.png");
+		massiveExplosion = new Texture("textures/explosions/massive_explosion.png");
 
 		vane = new Texture("textures/vanes/vane.png");
 		vaneTrim = new Texture("textures/vanes/vane_outline.png");
@@ -345,5 +366,15 @@ public class Textures {
 		Obscurities.three = new Texture("textures/obscurities/obscurity_3.png");
 		Obscurities.four = new Texture("textures/obscurities/obscurity_4.png");
 
+		OptionBoxes.acalc.off = new Texture("textures/optionboxes/acalc_OFF.png");
+		OptionBoxes.acalc.preal = new Texture("textures/optionboxes/acalc_preal.png");
+		OptionBoxes.acalc.pvals = new Texture("textures/optionboxes/acalc_pvals.png");
+		OptionBoxes.leftSelect = new Texture("textures/optionboxes/ob_select_left.png");
+		OptionBoxes.rightSelect = new Texture("textures/optionboxes/ob_select_right.png");
+
+		LevelDots.one = new Texture("textures/leveldots/1.png");
+		LevelDots.two = new Texture("textures/leveldots/2.png");
+		LevelDots.three = new Texture("textures/leveldots/3.png");
+		LevelDots.four = new Texture("textures/leveldots/4.png");
 	}
 }

@@ -45,7 +45,8 @@ public class GameScreen extends SpaceScreen{
     public boolean bayesian = false;
 
     int minecount=0;
-    
+    int originalMinecount=0;
+
     int waveno=0;
     String wavemax="?";
 	public GameScreen(final BayesDef bd) {
@@ -159,34 +160,37 @@ public class GameScreen extends SpaceScreen{
 		
 		draw_enemyships();
 		draw_obscurities();
-		draw_turrets();
+
+        if (playerShip.actuallyExists) { draw_turrets(); }
 		draw_vanes();
 		draw_symbols();
 		draw_shots();
-		draw_overlays();
+
+        if (playerShip.actuallyExists) { draw_overlays();}
 		
 		batch.draw(Textures.statusBar, statusBar.rect.x, statusBar.rect.y);
 		batch.draw(Textures.letterboxPoncho, -640, -960);
 	}
 	
 	void draw_playership(){
-		
-		batch.draw(Textures.theShip, playerShip.rect.x, playerShip.rect.y);
-		
-		if (playerShip.shieldCount==1){
-			batch.draw(Textures.Shields.one, playerShip.shield.x, playerShip.shield.y);
-		}
-		if (playerShip.shieldCount==2){
-			batch.draw(Textures.Shields.two, playerShip.shield.x, playerShip.shield.y);
-		}
-		if (playerShip.shieldCount==3){
-			batch.draw(Textures.Shields.three, playerShip.shield.x, playerShip.shield.y);
-		}
-		if (playerShip.shieldCount==4){
-			batch.draw(Textures.Shields.four, playerShip.shield.x, playerShip.shield.y);
-		}
-		if (playerShip.shieldCount==5){
-			batch.draw(Textures.Shields.five, playerShip.shield.x, playerShip.shield.y);
+		if (playerShip.actuallyExists) {
+			batch.draw(Textures.theShip, playerShip.rect.x, playerShip.rect.y);
+
+			if (playerShip.shieldCount == 1) {
+				batch.draw(Textures.Shields.one, playerShip.shield.x, playerShip.shield.y);
+			}
+			if (playerShip.shieldCount == 2) {
+				batch.draw(Textures.Shields.two, playerShip.shield.x, playerShip.shield.y);
+			}
+			if (playerShip.shieldCount == 3) {
+				batch.draw(Textures.Shields.three, playerShip.shield.x, playerShip.shield.y);
+			}
+			if (playerShip.shieldCount == 4) {
+				batch.draw(Textures.Shields.four, playerShip.shield.x, playerShip.shield.y);
+			}
+			if (playerShip.shieldCount == 5) {
+				batch.draw(Textures.Shields.five, playerShip.shield.x, playerShip.shield.y);
+			}
 		}
 	}
 	
@@ -241,7 +245,10 @@ public class GameScreen extends SpaceScreen{
 	
 	void draw_explosions(){
 		for(Explosion boom: explosions) {
-			if (boom.big){
+			if (boom.massive){
+				batch.draw(Textures.massiveExplosion, boom.rect.x, boom.rect.y);
+			}
+			else if (boom.big){
 				batch.draw(Textures.bigExplosion, boom.rect.x, boom.rect.y);
 			}
 			else{
@@ -308,7 +315,7 @@ public class GameScreen extends SpaceScreen{
 	   }
 	
 	void draw_turrets(){
-			for (Turret turret: turrets){
+			for (Turret turret : turrets) {
 				batch.draw(turret.currentT, turret.rect.x, turret.rect.y);
 			}
 	}
@@ -346,6 +353,7 @@ public class GameScreen extends SpaceScreen{
 	void draw_overlays(){
 		for (Turret turret: turrets){
 			batch.draw(turret.emptytopT, turret.rect.x, turret.rect.y);
+			if (turret.level>1) {batch.draw(turret.leveldotsT, turret.rect.x+13, turret.rect.y+11);}
 		}
 	}
 	
@@ -381,7 +389,32 @@ public class GameScreen extends SpaceScreen{
 			   return firstHalf + "." + b;
 		   }
 	   }
-	
+
+
+	String present_float_for_pvals(float flo){//All the normal methods won't export to html so I have to reinvent the wheel here.
+		int a=Math.round(flo*1000);
+		int b=a%1000;
+		int c=(a-b)/1000;
+
+		String firstHalf="";
+
+		if (c>9){
+			firstHalf=" "+c;
+		}
+		else{
+			firstHalf=""+c;
+		}
+
+		if (b<10){
+			return firstHalf + ".00" + b;
+		}
+		else if (b<100){
+			return firstHalf + ".0" + b;
+		}
+		else{
+			return firstHalf + "." + b;
+		}
+	}
 	//---Spawning functions---
 	
 		void spawn_explosion(float X, float Y){
@@ -411,10 +444,17 @@ public class GameScreen extends SpaceScreen{
 			   boom.big=true;
 			   explosions.add(boom);
 		}
-		
-		// ---Death---
-		
-		void initiate_failure(){
-			
-		}
+	void spawn_massive_explosion(float X, float Y){
+		Explosion boom = new Explosion();
+		boom.rect= new Rectangle();
+		boom.birthtime=totalTime;
+
+		boom.rect.x= X;
+		boom.rect.y= Y;
+		boom.rect.width=300;
+		boom.rect.height=480;
+
+		boom.massive=true;
+		explosions.add(boom);
+	}
 }
