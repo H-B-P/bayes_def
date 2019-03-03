@@ -2,41 +2,41 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f956f91-3a88-4f2a-a6b2-b593837100f7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_0.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_3.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_4.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_5.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/assets/textures/mines/fast_mine_silhouette.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/textures/mines/fast_mine_silhouette.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/assets/textures/mines/mine_silhouette.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/textures/mines/mine_silhouette.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/assets/textures/mines/slow_mine_silhouette.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/textures/mines/slow_mine_silhouette.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_pi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/music/Song2_final.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/main/com/bayesdef/BayesDef.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/main/com/bayesdef/BayesDef.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/main/com/bayesdef/objects/Explosion.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/main/com/bayesdef/objects/Explosion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/main/com/bayesdef/objects/Mine.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/main/com/bayesdef/objects/Mine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/main/com/bayesdef/objects/PlayerShip.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/main/com/bayesdef/objects/PlayerShip.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/main/com/bayesdef/objects/Shot.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/main/com/bayesdef/objects/Shot.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/main/com/bayesdef/objects/Turret.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/main/com/bayesdef/objects/Turret.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/main/com/bayesdef/resources/Options.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/main/com/bayesdef/resources/Options.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/main/com/bayesdef/resources/Textures$Buttons.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/main/com/bayesdef/resources/Textures$Buttons.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/main/com/bayesdef/resources/Textures$Icons.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/main/com/bayesdef/resources/Textures$Icons.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/main/com/bayesdef/resources/Textures$Mine.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/main/com/bayesdef/resources/Textures$Mine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/main/com/bayesdef/resources/Textures$Obscurities.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/main/com/bayesdef/resources/Textures$Obscurities.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/main/com/bayesdef/resources/Textures.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/main/com/bayesdef/resources/Textures.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/main/com/bayesdef/screens/GameScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/main/com/bayesdef/screens/GameScreen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/main/com/bayesdef/screens/Level_2.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/main/com/bayesdef/screens/Level_2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/main/com/bayesdef/screens/ProbScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/main/com/bayesdef/screens/ProbScreen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/main/com/bayesdef/screens/SpaceScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/main/com/bayesdef/screens/SpaceScreen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/BayesDef.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/BayesDef.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/objects/Explosion.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/objects/Explosion.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/objects/Mine.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/objects/Mine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/objects/PlayerShip.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/objects/PlayerShip.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/objects/Shot.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/objects/Shot.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/objects/Turret.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/objects/Turret.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/resources/Options.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/resources/Options.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/resources/Textures$Buttons.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/resources/Textures$Buttons.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/resources/Textures$Icons.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/resources/Textures$Icons.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/resources/Textures$Mine.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/resources/Textures$Mine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/resources/Textures$Obscurities.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/resources/Textures$Obscurities.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/resources/Textures.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/resources/Textures.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/resources/BGM.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/resources/BGM.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/screens/GameScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/screens/GameScreen.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/screens/Level_1.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/screens/Level_1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/screens/Level_2.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/screens/Level_2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/screens/ProbScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/screens/ProbScreen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/screens/Level_3.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/screens/Level_3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/screens/Level_4.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/screens/Level_4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/bayesdef/screens/Level_5.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/bayesdef/BayesDef.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/bayesdef/BayesDef.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/bayesdef/objects/Explosion.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/bayesdef/objects/Explosion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/bayesdef/objects/Mine.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/bayesdef/objects/Mine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/bayesdef/objects/PlayerShip.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/bayesdef/objects/PlayerShip.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/bayesdef/objects/Shot.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/bayesdef/objects/Shot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/bayesdef/objects/Turret.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/bayesdef/objects/Turret.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/bayesdef/resources/BGM.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/bayesdef/resources/BGM.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/bayesdef/resources/Options.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/bayesdef/resources/Options.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/bayesdef/resources/Textures.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/bayesdef/resources/Textures.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/bayesdef/screens/GameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/bayesdef/screens/GameScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_1.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_2.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/bayesdef/screens/ProbScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/bayesdef/screens/ProbScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_3.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_4.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_4.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_5.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_5_old.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/core/.gradle/" />
     <ignored path="$PROJECT_DIR$/core/build/" />
@@ -63,10 +63,37 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_3.java">
+        <entry file="file://$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_pi.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="885">
-              <caret line="62" column="9" lean-forward="true" selection-start-line="57" selection-start-column="8" selection-end-line="62" selection-end-column="9" />
+            <state relative-caret-position="15">
+              <caret line="31" column="50" selection-start-line="31" selection-start-column="50" selection-end-line="31" selection-end-column="50" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/bayesdef/resources/Sounds.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/bayesdef/resources/BGM.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="9" column="82" selection-start-line="9" selection-start-column="82" selection-end-line="9" selection-end-column="82" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/core/src/com/bayesdef/resources/Options.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="14" column="23" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -74,17 +101,38 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_4.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-109">
-              <caret line="180" column="29" selection-start-line="180" selection-start-column="29" selection-end-line="180" selection-end-column="29" />
+            <state relative-caret-position="180">
+              <caret line="15" column="32" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_2.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="15" column="32" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/bayesdef/screens/GameScreen.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1995">
+              <caret line="157" selection-start-line="157" selection-end-line="157" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/bayesdef/BayesDef.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="27" column="8" lean-forward="true" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
+            <state relative-caret-position="375">
+              <caret line="31" column="34" selection-start-line="31" selection-start-column="34" selection-end-line="31" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -92,8 +140,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_1.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1234">
-              <caret line="34" column="8" lean-forward="true" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="8" />
+            <state relative-caret-position="660">
+              <caret line="47" column="38" selection-start-line="47" selection-start-column="38" selection-end-line="47" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -101,7 +149,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/bayesdef/resources/Textures.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2527">
+            <state relative-caret-position="5640">
               <caret line="377" column="52" selection-start-line="377" selection-start-column="52" selection-end-line="377" selection-end-column="52" />
             </state>
           </provider>
@@ -111,7 +159,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>fail</find>
       <find>shot_</find>
       <find>_HUD</find>
       <find>raw_HUD</find>
@@ -141,6 +188,7 @@
       <find>collisi</find>
       <find>first</find>
       <find>0.2</find>
+      <find>draw_everything</find>
     </findStrings>
     <replaceStrings>
       <replace>second</replace>
@@ -159,17 +207,20 @@
         <option value="$PROJECT_DIR$/core/src/com/bayesdef/objects/Explosion.java" />
         <option value="$PROJECT_DIR$/core/src/com/bayesdef/objects/PlayerShip.java" />
         <option value="$PROJECT_DIR$/core/src/com/bayesdef/objects/Mine.java" />
-        <option value="$PROJECT_DIR$/core/src/com/bayesdef/resources/Options.java" />
         <option value="$PROJECT_DIR$/core/src/com/bayesdef/objects/Turret.java" />
         <option value="$PROJECT_DIR$/core/src/com/bayesdef/resources/Textures.java" />
-        <option value="$PROJECT_DIR$/core/src/com/bayesdef/screens/GameScreen.java" />
         <option value="$PROJECT_DIR$/core/src/com/bayesdef/screens/ProbScreen.java" />
-        <option value="$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_3.java" />
         <option value="$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_2.java" />
-        <option value="$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_4.java" />
         <option value="$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_1.java" />
-        <option value="$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_5.java" />
+        <option value="$PROJECT_DIR$/core/src/com/bayesdef/screens/GameScreen.java" />
+        <option value="$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_5_old.java" />
         <option value="$PROJECT_DIR$/core/src/com/bayesdef/BayesDef.java" />
+        <option value="$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_5.java" />
+        <option value="$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_3.java" />
+        <option value="$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_4.java" />
+        <option value="$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_pi.java" />
+        <option value="$PROJECT_DIR$/core/src/com/bayesdef/resources/BGM.java" />
+        <option value="$PROJECT_DIR$/core/src/com/bayesdef/resources/Options.java" />
       </list>
     </option>
   </component>
@@ -327,7 +378,7 @@
     <frame x="260" y="53" width="1400" height="1000" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.32544377" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.35946745" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -392,13 +443,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/bayesdef/resources/Options.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="31" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/bayesdef/objects/PlayerShip.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="265">
@@ -434,16 +478,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/bayesdef/screens/GameScreen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1290">
-          <caret line="110" column="8" selection-start-line="110" selection-start-column="8" selection-end-line="110" selection-end-column="8" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_0.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="594">
@@ -461,52 +495,90 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/bayesdef/resources/Textures.java">
+    <entry file="file://$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_5_old.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2527">
-          <caret line="377" column="52" selection-start-line="377" selection-start-column="52" selection-end-line="377" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="15" column="32" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_1.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1234">
-          <caret line="34" column="8" lean-forward="true" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="8" />
+        <state relative-caret-position="285">
+          <caret line="22" column="4" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_3.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="885">
-          <caret line="62" column="9" lean-forward="true" selection-start-line="57" selection-start-column="8" selection-end-line="62" selection-end-column="9" />
+        <state relative-caret-position="2865">
+          <caret line="194" column="9" selection-start-line="194" selection-start-column="9" selection-end-line="194" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_4.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-109">
-          <caret line="180" column="29" selection-start-line="180" selection-start-column="29" selection-end-line="180" selection-end-column="29" />
+        <state relative-caret-position="180">
+          <caret line="15" column="32" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_5.java">
+    <entry file="file://$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_2.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="270" lean-forward="true" selection-start-line="270" selection-end-line="270" />
+        <state relative-caret-position="180">
+          <caret line="15" column="32" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/bayesdef/screens/GameScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1995">
+          <caret line="157" selection-start-line="157" selection-end-line="157" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/bayesdef/BayesDef.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="27" column="8" lean-forward="true" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
+        <state relative-caret-position="375">
+          <caret line="31" column="34" selection-start-line="31" selection-start-column="34" selection-end-line="31" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_1.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="47" column="38" selection-start-line="47" selection-start-column="38" selection-end-line="47" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/bayesdef/resources/Textures.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5640">
+          <caret line="377" column="52" selection-start-line="377" selection-start-column="52" selection-end-line="377" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/bayesdef/screens/Level_pi.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="31" column="50" selection-start-line="31" selection-start-column="50" selection-end-line="31" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/bayesdef/resources/Sounds.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/bayesdef/resources/BGM.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="9" column="82" selection-start-line="9" selection-start-column="82" selection-end-line="9" selection-end-column="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/bayesdef/resources/Options.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="23" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="23" />
         </state>
       </provider>
     </entry>

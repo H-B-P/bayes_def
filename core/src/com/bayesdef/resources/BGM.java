@@ -7,6 +7,6 @@ public class BGM {
 	public static Music campaignMusic;
 	
 	public static void load () {
-		campaignMusic=Gdx.audio.newMusic(Gdx.files.internal("music/Song2_final.wav"));
+		campaignMusic=Gdx.audio.newMusic(Gdx.files.internal("music/Song2_final.mp3"));
 	}
 }

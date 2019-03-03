@@ -210,7 +210,7 @@ public class Level_3 extends ProbScreen{
 			playerShip.vertAcc=40;
 		}
 		if (seconds==168){
-			//goto next level
+			game.setScreen(new Level_pi(game, minecount));
 		}
 	}
 

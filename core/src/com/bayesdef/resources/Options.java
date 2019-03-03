@@ -12,7 +12,7 @@ public class Options {
 
 	public static void load () {
 		SFXVolume=1f;
-		MusicVolume=1f;
+		MusicVolume=0.8f;
 		
 		waitForFiringButton=false;
 		permitFlickering=true;

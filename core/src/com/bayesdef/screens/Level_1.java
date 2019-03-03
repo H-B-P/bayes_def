@@ -41,14 +41,14 @@ public class Level_1 extends ProbScreen{
 		turretOne.targetingXOffset=-10;
 		turretOne.targetingYOffset=15;
 
-		turretTwo.targetingXOffset=15;
+		turretTwo.targetingXOffset=-15;
 		turretTwo.targetingYOffset=-5;
 
-		turretThree.targetingXOffset=-15;
-		turretThree.targetingYOffset=-5;
+		turretThree.targetingXOffset=0;
+		turretThree.targetingYOffset=-15;
 
-		turretFour.targetingXOffset=0;
-		turretFour.targetingYOffset=-15;
+		turretFour.targetingXOffset=15;
+		turretFour.targetingYOffset=-5;
 
 		turretFive.targetingXOffset=10;
 		turretFive.targetingYOffset=15;

@@ -153,9 +153,9 @@ public class GameScreen extends SpaceScreen{
 	
 	public void draw_everything(){
 		
-		draw_playership();
-		
 		draw_mines();
+		draw_playership();
+
 		draw_explosions();
 		
 		draw_enemyships();
