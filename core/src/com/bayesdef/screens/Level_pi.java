@@ -14,7 +14,7 @@ public class Level_pi extends ProbScreen{
 	public Level_pi(final BayesDef bd, int mc) {
 		
 		super(bd, mc);
-		playerShip.shieldCount=1;
+		playerShip.shieldCount=2;
 
 		firstAnomaly = MathUtils.random(1,4);
 		secondAnomaly = MathUtils.random(1,4);
@@ -30,7 +30,7 @@ public class Level_pi extends ProbScreen{
 		Turret turretOne = new Turret("circle",3);
 		Turret turretTwo = new Turret("circle",1);
 		Turret turretThree = new Turret("circle",4);
-		Turret turretFour = new Turret("circle",1);
+		Turret turretFour = new Turret("circle",2);
 		
 		turretOne.rect.x = 50;
 		turretTwo.rect.x = 110;
@@ -123,27 +123,27 @@ public class Level_pi extends ProbScreen{
 			}
 		}
 
-		if (seconds==14 || seconds==15){
+		if (seconds==12 || seconds==13){
 			waveno=2;
 			spawnMine(-2,"regular", MathUtils.randomBoolean(0.2f), true);
 			spawnMine(0,"regular", MathUtils.randomBoolean(0.2f), true);
 		}
 
-		if (seconds==20 || seconds==21){
+		if (seconds==16 || seconds==17){
 			waveno=3;
 			spawnMine(-1,"slow", MathUtils.randomBoolean(0.2f), true);
 			spawnMine(1,"slow", MathUtils.randomBoolean(0.2f), true);
 			spawnMine(3,"slow", MathUtils.randomBoolean(0.2f), true);
 		}
 
-		if (seconds==26 || seconds==27){
+		if (seconds==21 || seconds==22){
 			waveno=4;
 			spawnMine(-3,"regular", MathUtils.randomBoolean(0.2f), true);
 			spawnMine(-1,"regular", MathUtils.randomBoolean(0.2f), true);
 			spawnMine(1,"regular", MathUtils.randomBoolean(0.2f), true);
 		}
 
-		if (seconds==32 || seconds==33){
+		if (seconds==25 || seconds==26){
 			waveno=5;
 			spawnMine(-3,"regular", MathUtils.randomBoolean(0.2f), true);
 			spawnMine(-1,"slow", MathUtils.randomBoolean(0.2f), true);
@@ -151,14 +151,14 @@ public class Level_pi extends ProbScreen{
 			spawnMine(3,"slow", MathUtils.randomBoolean(0.2f), true);
 		}
 
-		if (seconds==38 || seconds==39){
+		if (seconds==30 || seconds==31){
 			waveno=6;
 			spawnMine(-3,"regular", MathUtils.randomBoolean(0.2f), true);
 			spawnMine(-1,"regular", MathUtils.randomBoolean(0.2f), true);
 			spawnMine(2,"fast", MathUtils.randomBoolean(0.2f), true);
 		}
 
-		if (seconds==44 || seconds==45){
+		if (seconds==34 || seconds==35){
 			waveno=7;
 			spawnMine(-3,"regular", MathUtils.randomBoolean(0.2f), true);
 			spawnMine(-1,"regular", MathUtils.randomBoolean(0.2f), true);
@@ -166,7 +166,7 @@ public class Level_pi extends ProbScreen{
 			spawnMine(3,"slow", MathUtils.randomBoolean(0.2f), true);
 		}
 
-		if (seconds==50 || seconds==51){
+		if (seconds==39 || seconds==40){
 			waveno=8;
 			spawnMine(-3,"slow", MathUtils.randomBoolean(0.2f), true);
 			spawnMine(-1,"slow", MathUtils.randomBoolean(0.2f), true);
@@ -174,14 +174,14 @@ public class Level_pi extends ProbScreen{
 			spawnMine(3,"fast", MathUtils.randomBoolean(0.2f), true);
 		}
 
-		if (seconds==60){
+		if (seconds==46){
 			ghostNature="";
 		}
-		if (seconds==62){
+		if (seconds==48){
 			ghostNature="MANY";
 		}
 
-		if (seconds==64){
+		if (seconds==50){
 			waveno=9;
 			if (secondAnomaly==1){
 				spawnMine(-3,"regular");
@@ -208,7 +208,7 @@ public class Level_pi extends ProbScreen{
 				spawnMine(3,"regular", true, false);
 			}
 		}
-		if (seconds==65){
+		if (seconds==51){
 			if (secondAnomaly==1){
 				spawnMine(-3,"regular", true, false);
 			}
@@ -235,27 +235,27 @@ public class Level_pi extends ProbScreen{
 			}
 		}
 
-		if (seconds==70 || seconds==71){
+		if (seconds==54 || seconds==55){
 			waveno=10;
 			spawnMine(0,"regular", MathUtils.randomBoolean(0.8f), true);
 			spawnMine(2,"regular", MathUtils.randomBoolean(0.8f), true);
 		}
 
-		if (seconds==76 || seconds==77){
+		if (seconds==58 || seconds==59){
 			waveno=11;
 			spawnMine(-3,"slow", MathUtils.randomBoolean(0.8f), true);
 			spawnMine(-1,"slow", MathUtils.randomBoolean(0.8f), true);
 			spawnMine(1,"slow", MathUtils.randomBoolean(0.8f), true);
 		}
 
-		if (seconds==82 || seconds==83){
+		if (seconds==63 || seconds==64){
 			waveno=12;
 			spawnMine(-1,"regular", MathUtils.randomBoolean(0.8f), true);
 			spawnMine(1,"regular", MathUtils.randomBoolean(0.8f), true);
 			spawnMine(3,"regular", MathUtils.randomBoolean(0.8f), true);
 		}
 
-		if (seconds==88 || seconds==89){
+		if (seconds==67 || seconds==68){
 			waveno=13;
 			spawnMine(-3,"slow", MathUtils.randomBoolean(0.8f), true);
 			spawnMine(-1,"slow", MathUtils.randomBoolean(0.8f), true);
@@ -263,14 +263,14 @@ public class Level_pi extends ProbScreen{
 			spawnMine(3,"regular", MathUtils.randomBoolean(0.8f), true);
 		}
 
-		if (seconds==94 || seconds==95){
+		if (seconds==72 || seconds==73){
 			waveno=14;
 			spawnMine(-2,"fast", MathUtils.randomBoolean(0.8f), true);
 			spawnMine(1,"regular", MathUtils.randomBoolean(0.8f), true);
 			spawnMine(3,"regular", MathUtils.randomBoolean(0.8f), true);
 		}
 
-		if (seconds==100 || seconds==101){
+		if (seconds==76 || seconds==77){
 			waveno=15;
 			spawnMine(-3,"slow", MathUtils.randomBoolean(0.8f), true);
 			spawnMine(-1,"slow", MathUtils.randomBoolean(0.8f), true);
@@ -278,7 +278,7 @@ public class Level_pi extends ProbScreen{
 			spawnMine(3,"regular", MathUtils.randomBoolean(0.8f), true);
 		}
 
-		if (seconds==106 || seconds==107){
+		if (seconds==81 || seconds==82){
 			waveno=16;
 			spawnMine(-3,"fast", MathUtils.randomBoolean(0.8f), true);
 			spawnMine(-1,"regular", MathUtils.randomBoolean(0.8f), true);
@@ -288,24 +288,29 @@ public class Level_pi extends ProbScreen{
 
 
 
-		if (seconds==114){
+		if (seconds==88){
 			statusBar.vertVel=40;
 		}
-		if (seconds==116){
+		if (seconds==90){
 			playerShip.restrained=false;
 			playerShip.vertVel=40;
 			playerShip.vertAcc=40;
 		}
-		if (seconds==122){
-			game.setScreen(new Level_5_old(game, minecount));
+		if (seconds==96){
+			game.setScreen(new Level_4(game, minecount));
 		}
 	}
 
+	@Override
+
+	void level_specific_failure(){
+		game.setScreen(new Level_pi(game, originalMinecount));
+	}
 
 	@Override
 	
 	void level_specific_huddery(){
-		Fonts.AcalcFonts.black.draw(batch, "=== Level pi ===", statusBar.rect.x+10, statusBar.rect.y+67, 150, 1, true);
+		Fonts.AcalcFonts.black.draw(batch, "=== Level pi/4 ===", statusBar.rect.x+10, statusBar.rect.y+67, 150, 1, true);
 		Fonts.AcalcFonts.black.draw(batch, "WAVE*2: "+waveno+"/16", statusBar.rect.x+10, statusBar.rect.y+45, 150, 1, true);
 		Fonts.AcalcFonts.black.draw(batch, "GHOSTS: "+ghostNature, statusBar.rect.x+10, statusBar.rect.y+25, 150, 1, true);
 	}

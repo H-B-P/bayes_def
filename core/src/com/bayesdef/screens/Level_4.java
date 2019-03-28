@@ -13,7 +13,7 @@ public class Level_4 extends ProbScreen{
 	public Level_4(final BayesDef bd, int mc) {
 		
 		super(bd, mc);
-		playerShip.shieldCount=3;
+		playerShip.shieldCount=2;
 
 	}
 	
@@ -73,72 +73,72 @@ public class Level_4 extends ProbScreen{
 			spawnMine(-1,"regular");
 			spawnMine(2,"fast");
 		}
-		if (seconds==15 || seconds==16 || seconds==17 || seconds==18){
+		if (seconds==11 || seconds==12 || seconds==13 || seconds==14){
 			waveno=2;
 			spawnMine(-3,"fast");
 			spawnMine(1,"fast");
 			spawnMine(3,"slow");
 		}
-		if (seconds==25 || seconds==26 || seconds==27 || seconds==28){
+		if (seconds==18 || seconds==19 || seconds==20 || seconds==21){
 			waveno=3;
 			spawnMine(-3,"slow");
 			spawnMine(-1,"regular");
 			spawnMine(1,"regular");
 			spawnMine(3,"regular");
 		}
-		if (seconds==35 || seconds==36 || seconds==37 || seconds==38){
+		if (seconds==25 || seconds==26 || seconds==27 || seconds==28){
 			waveno=4;
 			spawnMine(-3,"fast");
 			spawnMine(-1,"regular");
 			spawnMine(1,"slow");
 			spawnMine(3,"slow");
 		}
-		if (seconds==45 || seconds==46 || seconds==47 || seconds==48){
+		if (seconds==32 || seconds==33 || seconds==34 || seconds==35){
 			waveno=5;
 			spawnMine(-2,"slow");
 			spawnMine(0,"fast");
 			spawnMine(2,"regular", MathUtils.randomBoolean(),true);
 		}
-		if (seconds==55 || seconds==56 || seconds==57 || seconds==58){
+		if (seconds==39 || seconds==40 || seconds==41 || seconds==42){
 			waveno=6;
 			spawnMine(-3,"slow", MathUtils.randomBoolean(),true);
 			spawnMine(-1,"slow", MathUtils.randomBoolean(),true);
 			spawnMine(1,"regular");
 			spawnMine(3,"regular");
 		}
-		if (seconds==65 || seconds==66 || seconds==67 || seconds==68){
+		if (seconds==46 || seconds==47 || seconds==48 || seconds==49){
 			waveno=7;
 			spawnMine(-3,"slow", MathUtils.randomBoolean(),true);
 			spawnMine(-1,"fast");
 			spawnMine(1,"slow", MathUtils.randomBoolean(),true);
 			spawnMine(3,"slow", MathUtils.randomBoolean(),true);
 		}
-		if (seconds==75 || seconds==76 || seconds==77 || seconds==78){
+		if (seconds==53 || seconds==54 || seconds==55 || seconds==56){
 			waveno=8;
 			spawnMine(-3,"slow");
 			spawnMine(-1,"fast");
 			spawnMine(1,"slow");
 			spawnMine(3,"fast", MathUtils.randomBoolean(),true);
 		}
-		if (seconds==85 || seconds==86 || seconds==87 || seconds==88){
+		if (seconds==60 || seconds==61 || seconds==62 || seconds==63){
 			waveno=9;
 			spawnMine(-2,"regular", MathUtils.randomBoolean(),true);
 			spawnMine(0,"regular", MathUtils.randomBoolean(),true);
 			spawnMine(2,"regular", MathUtils.randomBoolean(),true);
 		}
-		if (seconds==95 || seconds==96 || seconds==97 || seconds==98){
+		if (seconds==66 || seconds==67 || seconds==68 || seconds==69){
 			waveno=10;
 			spawnMine(-2,"fast", MathUtils.randomBoolean(),true);
 			spawnMine(2,"fast", MathUtils.randomBoolean(),true);
 		}
-		if (seconds==105 || seconds==106 || seconds==107 || seconds==108){
+		if (seconds==71 || seconds==72 || seconds==73 || seconds==74){
 			waveno=11;
 			spawnMine(-3,"slow", MathUtils.randomBoolean(),true);
 			spawnMine(-1,"slow", MathUtils.randomBoolean(),true);
 			spawnMine(1,"slow", MathUtils.randomBoolean(),true);
 			spawnMine(3,"slow", MathUtils.randomBoolean(),true);
 		}
-		if (seconds==115 || seconds==116 || seconds==117 || seconds==118){
+		if (seconds==78 || seconds==79 || seconds==80 || seconds==81){
 			waveno=12;
 			spawnMine(-2,"slow", MathUtils.randomBoolean(),true);
 			spawnMine(0,"regular", MathUtils.randomBoolean(),true);
@@ -146,32 +146,37 @@ public class Level_4 extends ProbScreen{
 		}
 
 
-		if (seconds==125){
+		if (seconds==86){
 			statusBar.vertVel=40;
 		}
-		if (seconds==127){
+		if (seconds==88){
 			playerShip.restrained=false;
 			playerShip.vertVel=40;
 			playerShip.vertAcc=40;
 		}
 	}
 
+	@Override
+
+	void level_specific_failure(){
+		game.setScreen(new Level_4(game, originalMinecount));
+	}
 
 	@Override
 	
 	void level_specific_huddery(){
-		Fonts.AcalcFonts.black.draw(batch, "=== Level 4 ===", statusBar.rect.x+10, statusBar.rect.y+67, 150, 1, true);
+		Fonts.AcalcFonts.black.draw(batch, "=== Level 4/4 ===", statusBar.rect.x+10, statusBar.rect.y+67, 150, 1, true);
 		Fonts.AcalcFonts.black.draw(batch, "WAVE*4: "+waveno+"/12", statusBar.rect.x+10, statusBar.rect.y+45, 150, 1, true);
 		Fonts.AcalcFonts.black.draw(batch, "GHOSTS: "+ghostNature, statusBar.rect.x+10, statusBar.rect.y+25, 150, 1, true);
 
 
-		if (seconds>140){
+		if (seconds>94){
 			Fonts.AcalcFonts.white.draw(batch, "congrats", 80,260,160, 1, true);
 		}
-		if (seconds>142){
+		if (seconds>96){
 			Fonts.AcalcFonts.white.draw(batch, "you won", 80,240,160, 1, true);
 		}
-		if (seconds>144){
+		if (seconds>98){
 			Fonts.AcalcFonts.white.draw(batch, "good job", 80,220,160, 1, true);
 		}
 

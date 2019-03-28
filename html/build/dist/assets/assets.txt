@@ -194,7 +194,7 @@ i:textures/leveldots/3.png:136:image/png
 i:textures/leveldots/1.png:116:image/png
 i:textures/leveldots/2.png:123:image/png
 d:music:0:application/unknown
-a:music/Song2_final.wav:17560496:audio/x-wav
+a:music/Song2.ogg:10504835:application/unknown
 i:badlogic.jpg:68465:image/jpeg
 t:com/badlogic/gdx/graphics/g3d/particles/particles.fragment.glsl:859:application/unknown
 t:com/badlogic/gdx/graphics/g3d/particles/particles.vertex.glsl:2996:application/unknown

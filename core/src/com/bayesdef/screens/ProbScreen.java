@@ -84,16 +84,20 @@ public class ProbScreen extends GameScreen{
 	// ===Implications of Status===
 	
 	void do_status_relevant_things(){
+		if (currentStatus.equals("sulking")){
+			TIMESPEED=0;
+			do_sulking_things();
+		}
 		if (currentStatus.equals("waiting")){
 			TIMESPEED=1;
 			do_waiting_things();
 		}
 		//else here?
-		if (currentStatus.equals("targeting")){
+		else if (currentStatus.equals("targeting")){
 			TIMESPEED=0;
 			do_targeting_things();
 		}
-		if (currentStatus.equals("hanging")){
+		else if (currentStatus.equals("hanging")){
 			TIMESPEED=0;
 			draw_targeting();
 			autocalc();
@@ -101,12 +105,21 @@ public class ProbScreen extends GameScreen{
 				currentStatus="firing";
 			}
 		}
-		if (currentStatus.equals("firing")){
+		else if (currentStatus.equals("firing")){
 			TIMESPEED=0.1f;
 			do_firing_things();
 		}
 	}
-	
+
+	void do_sulking_things(){
+		BGM.campaignMusic.stop();
+		if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Keys.SPACE)){
+			currentStatus="waiting";
+			BGM.campaignMusic.setLooping(true);
+			BGM.campaignMusic.play();
+		}
+	}
+
 	void do_waiting_things(){
 		if ((seconds+1)<totalTime){
 			seconds+=1;

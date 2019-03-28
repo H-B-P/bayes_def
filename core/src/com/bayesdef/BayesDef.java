@@ -29,7 +29,7 @@ public class BayesDef extends Game {
 		Options.load();
 		
 		
-		this.setScreen(new Level_4(this, 0)); //Hand off to initial screen.
+		this.setScreen(new Level_1(this, 0)); //Hand off to initial screen.
 		
 	}
 

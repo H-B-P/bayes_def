@@ -67,30 +67,30 @@ public class Level_1 extends ProbScreen{
 			waveno=1;
 			spawnMine(0,"regular");
 		}
-		if (seconds==10){
+		if (seconds==8){
 			waveno=2;
 			spawnMine(-1, "regular");
 			spawnMine(1, "regular");
 		}
-		if (seconds==15){
+		if (seconds==11){
 			waveno=3;
 			spawnMine(-2, "slow");
 			spawnMine(0, "slow");
 			spawnMine(2, "slow");
 		}
-		if (seconds==20){
+		if (seconds==15){
 			waveno=4;
 			spawnMine(-2, "slow");
 			spawnMine(0, "regular");
 			spawnMine(2, "slow");
 		}
-		if (seconds==28){
+		if (seconds==19){
 			waveno=5;
 			spawnMine(-2, "regular");
 			spawnMine(0, "slow");
 			spawnMine(2, "regular");
 		}
-		if (seconds==33){
+		if (seconds==23){
 			waveno=6;
 			spawnMine(-3, "slow");
 			spawnMine(-1, "slow");
@@ -98,22 +98,29 @@ public class Level_1 extends ProbScreen{
 			spawnMine(3, "slow");
 		}
 		
-		if (seconds==38){
+		if (seconds==27){
 			waveno=7;
 			spawnMine(0, "regular", true, false);
 		}
-		if (seconds==43){
+		if (seconds==30){
 			waveno=8;
-			spawnMine(-2, "slow", true, false);
-			spawnMine(0, "regular", true, false);
-			spawnMine(2, "fast", true, false);
+			if (MathUtils.randomBoolean()){
+				spawnMine(-2, "regular", true, false);
+				spawnMine(0, "regular");
+				spawnMine(2, "regular", true, false);
+			}
+			else{
+				spawnMine(-2, "regular");
+				spawnMine(0, "regular",true,false);
+				spawnMine(2, "regular");
+			}
 		}
 
-		if (seconds==50) {
+		if (seconds==34) {
 			waveno = 9;
 			spawnMine(0, "regular", MathUtils.randomBoolean(), true);
 		}
-		if (seconds==55) {
+		if (seconds==37) {
 			waveno = 10;
 			if (MathUtils.randomBoolean()){
 				spawnMine(-1,"regular",true,true);
@@ -124,36 +131,42 @@ public class Level_1 extends ProbScreen{
 				spawnMine(1,"regular",true,true);
 			}
 		}
-		if (seconds==60) {
+		if (seconds==40) {
 			waveno = 11;
 			spawnMine(-2, "slow", MathUtils.randomBoolean(), true);
 			spawnMine(0, "slow", MathUtils.randomBoolean(), true);
 			spawnMine(2, "slow", MathUtils.randomBoolean(), true);
 		}
-		if (seconds==65) {
+		if (seconds==44) {
 			waveno = 12;
 			spawnMine(-2, "slow", MathUtils.randomBoolean(), true);
 			spawnMine(0, "regular", MathUtils.randomBoolean(), true);
 			spawnMine(2, "slow", MathUtils.randomBoolean(), true);
 		}
 
-		if (seconds==70){
+		if (seconds==50){
 			statusBar.vertVel=40;
 		}
-		if (seconds==72){
+		if (seconds==52){
 			playerShip.restrained=false;
 			playerShip.vertVel=40;
 			playerShip.vertAcc=40;
 		}
-		if (seconds==78){
+		if (seconds==58){
 			game.setScreen(new Level_2(game, minecount));
 		}
 	}
-	
+
+	@Override
+
+	void level_specific_failure(){
+		game.setScreen(new Level_1(game, originalMinecount));
+	}
+
 	@Override
 	
 	void level_specific_huddery(){
-		Fonts.AcalcFonts.black.draw(batch, "=== Level 1 ===", statusBar.rect.x+10, statusBar.rect.y+67, 150, 1, true);
+		Fonts.AcalcFonts.black.draw(batch, "=== Level 1/4 ===", statusBar.rect.x+10, statusBar.rect.y+67, 150, 1, true);
 		Fonts.AcalcFonts.black.draw(batch, "WAVE: "+waveno+"/12", statusBar.rect.x+10, statusBar.rect.y+45, 150, 1, true);
 		Fonts.AcalcFonts.black.draw(batch, "GHOSTS: SOME", statusBar.rect.x+10, statusBar.rect.y+25, 150, 1, true);
 	}
