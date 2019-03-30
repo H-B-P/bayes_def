@@ -69,8 +69,10 @@ public class GameScreen extends SpaceScreen{
 	@Override
 	
 	public void render(float delta){
-		game_render(delta);
-		handle_exits();
+		if (!PAUSED) {
+			game_render(delta);
+			handle_exits();
+		}
 	}
 	
 	public void game_render(float delta){

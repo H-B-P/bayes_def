@@ -53,21 +53,24 @@ public class ProbScreen extends GameScreen{
 	@Override
 	
 	public void render(float delta){
-		game_render(delta);
-		
-		check_for_shield_mine_collisions();
-		check_for_ship_mine_collisions();
-		check_for_shot_mine_collisions();
-		
-		do_status_relevant_things();
-		
-		draw_HUD();
-		
-		for (Turret turret: turrets){
-			turret.rect.y = playerShip.rect.y + playerShip.rect.height - turret.rect.height - 25;
-		}
 
-		handle_failure();
+		if (!PAUSED) {
+			game_render(delta);
+
+			check_for_shield_mine_collisions();
+			check_for_ship_mine_collisions();
+			check_for_shot_mine_collisions();
+
+			do_status_relevant_things();
+
+			draw_HUD();
+
+			for (Turret turret : turrets) {
+				turret.rect.y = playerShip.rect.y + playerShip.rect.height - turret.rect.height - 25;
+			}
+
+			handle_failure();
+		}
 	}
 
 	// ===Failure===
@@ -88,7 +91,7 @@ public class ProbScreen extends GameScreen{
 			TIMESPEED=0;
 			do_sulking_things();
 		}
-		if (currentStatus.equals("waiting")){
+		else if (currentStatus.equals("waiting")){
 			TIMESPEED=1;
 			do_waiting_things();
 		}
@@ -125,6 +128,7 @@ public class ProbScreen extends GameScreen{
 			seconds+=1;
 			System.out.println(seconds);
 			if (any_targetable_mines() && !suppressFreezes){
+				TIMESPEED=0;
 				currentStatus="targeting";
 			}
 			level_specific_events();
@@ -154,7 +158,7 @@ public class ProbScreen extends GameScreen{
 		if (currentlyActiveTurret!=null){
 			if (Gdx.input.justTouched()){
 				for (Mine mine: mines){
-					if (mine.rect.contains(tp_x,tp_y)){
+					if (mine.rect.contains(tp_x,tp_y) && screenProper.overlaps(mine.rect)){
 						currentlyActiveTurret.targeted = true;
 						currentlyActiveTurret.targetMine = mine;
 					}

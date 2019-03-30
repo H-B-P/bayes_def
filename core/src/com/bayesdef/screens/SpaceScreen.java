@@ -40,9 +40,9 @@ public class SpaceScreen extends MetaScreen {
 	}
 
 	public void render(float delta) {
-		
-		space_render(delta);
-		
+		if (!PAUSED) {
+			space_render(delta);
+		}
 	}
 	
 	public void space_render(float delta) {

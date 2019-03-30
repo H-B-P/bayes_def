@@ -59,9 +59,10 @@ public class Level_0_restarted extends ProbScreen{
 		}
 		if (seconds==17){
 			waveno=5;
-			spawnMine(-2, "slow", true,false);
-			spawnMine(0, "regular",true,false);
-			spawnMine(2, "fast", true,false);
+			spawnMine(-3, "fast", true,false);
+			spawnMine(-1, "regular");
+			spawnMine(1, "regular");
+			spawnMine(3, "slow", true,false);
 		}
 		if (seconds==21){
 			waveno=6;

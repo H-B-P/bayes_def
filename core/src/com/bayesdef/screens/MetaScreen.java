@@ -27,7 +27,9 @@ public class MetaScreen implements Screen {
 	public float tp_x; //These two lines between them give the True Position of the mouse on the screen.
 	public float tp_y; //(This is as opposed to the position in whatever grid we're using in a level)
 					   //(Measured in (unscaled) pixels from the bottom left corner of the screen)
-	
+
+	public boolean PAUSED=false;
+
 	//public MetaScreen(BayesDef bayesdef) {
 	public MetaScreen(BayesDef bd) {
 		//this.game=bayesdef;
@@ -114,12 +116,12 @@ public class MetaScreen implements Screen {
 
 	@Override
 	public void pause() {
-		
+		PAUSED = true;
 	}
 
 	@Override
 	public void resume() {
-		
+		PAUSED = false;
 	}
 	
 	public void dispose() {

@@ -59,10 +59,11 @@ public class Level_0 extends ProbScreen{
 		if (seconds==14){
 			VERY_level_specific_turret_setup();
 			playerShip.vertVel=50;
-		}
-		if (seconds==15){
 			statusBar.vertVel=-40;
 			suppressFreezes=false;
+		}
+		if (seconds==15){
+
 		}
 		if (seconds==20){
 			waveno=1;
@@ -85,9 +86,10 @@ public class Level_0 extends ProbScreen{
 		}
 		if (seconds==33){
 			waveno=5;
-			spawnMine(-2, "slow", true,false);
-			spawnMine(0, "regular",true,false);
-			spawnMine(2, "fast", true,false);
+			spawnMine(-3, "fast", true,false);
+			spawnMine(-1, "regular");
+			spawnMine(1, "regular");
+			spawnMine(3, "slow", true,false);
 		}
 		if (seconds==37){
 			waveno=6;
